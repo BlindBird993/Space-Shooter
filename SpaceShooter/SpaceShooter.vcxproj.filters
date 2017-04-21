@@ -39,13 +39,19 @@
     <ClCompile Include="BMPLoader.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="ParticlesClass.cpp">
+    <ClCompile Include="..\src\Weapon.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="ParticlesEngineClass.cpp">
+    <ClCompile Include="..\src\Bullets.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="AraragiKoyomiClass.cpp">
+    <ClCompile Include="..\src\AraragiKoyomiClass.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ParticlesClass.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ParticlesEngineClass.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,13 +86,25 @@
     <ClInclude Include="BMPLoader.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="ParticlesClass.h">
+    <ClInclude Include="..\include\Weapon.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="ParticlesEngineClass.h">
+    <ClInclude Include="..\include\MachineGun.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="AraragiKoyomiClass.h">
+    <ClInclude Include="..\include\Bullets.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AraragiKoyomiClass.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ParticlesClass.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ParticlesEngineClass.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Lazer.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,7 +5,7 @@
 #include <GL/freeglut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include "BMPLoader.h"
+//#include "BMPLoader.h"
 #include "SceneObject.hpp"
 #include "glm/glm.hpp"
 #include <iostream>
@@ -13,8 +13,12 @@
 class BattleField : public SceneObject
 {
 	public:
+		BattleField(int width_, int height_, int depth_);
 		BattleField();
 		~BattleField();
+
+		int getBattleWidth();
+		int getBattleDepth();
 
   protected:
         virtual void privateInit();
@@ -23,9 +27,9 @@ class BattleField : public SceneObject
 
 	private:
 
-	BMPClass textureClass_;
+	//BMPClass textureClass_;
 	GLuint textureName_;
-	//int width, height;
+	int width_, height_, depth_;
 
     std::vector< glm::vec3 > vertexArray_; // Maybe two-dim vector and several arrays
 	std::vector<unsigned int> indexArray_;

@@ -10,6 +10,7 @@
 #include "FpsCounter.hpp"
 #include "GameManager.hpp"
 #include "glm/glm.hpp"
+#include "Weapon.h"
 
 #include <iostream>
 
@@ -46,12 +47,70 @@ void display()//rendering
   gm->update(counter.fps());
   gm->render();
 
-  if(keyPressed[KEY_ID_W]==true)      gm->getCam()->moveForward();
-  if(keyPressed[KEY_ID_A]==true)      gm->getCam()->moveLeft();
-  if(keyPressed[KEY_ID_D]==true)      gm->getCam()->moveRight();
-  if(keyPressed[KEY_ID_S]==true)      gm->getCam()->moveBackward();
-  if(keyPressed[KEY_ID_SPACE]==true)  gm->getCam()->moveUp();
-  if(keyPressed[KEY_ID_C]==true)      gm->getCam()->moveDown();
+  if (keyPressed[KEY_ID_W] == true) { 
+	  gm->getCam()->moveForward(); 
+	  gm->getSpaceShip()->shipMoveForward();
+  }
+  if (keyPressed[KEY_ID_A] == true) { 
+	  gm->getSpaceShip()->shipMoveLeft();
+	  gm->getCam()->moveLeft();
+  }
+  if (keyPressed[KEY_ID_D] == true) { 
+	  gm->getSpaceShip()->shipMoveRight(); 
+	  gm->getCam()->moveRight();
+  }
+
+  if (keyPressed[KEY_ID_S] == true) { 
+	  gm->getSpaceShip()->shipMoveBackward();
+	  gm->getCam()->moveBackward(); 
+	  
+  }
+  if (keyPressed[KEY_ID_SPACE] == true) { 
+	  
+	  //gm->getSpaceShip()->shipMoveUp();
+	  gm->getCam()->moveUp(); 
+  }
+  if(keyPressed[KEY_ID_C]==true) {
+
+	  //gm->getSpaceShip()->shipMoveDown();
+	  gm->getCam()->moveDown();
+  }
+  //ship movement
+  if (keyPressed[KEY_ID_RIGHT] == true)  gm->getSpaceShip()->shipMoveRight();
+  if (keyPressed[KEY_ID_LEFT] == true)   gm->getSpaceShip()->shipMoveLeft();
+
+  if (keyPressed[KEY_ID_UP] == true)  gm->getSpaceShip()->shipMoveUp();
+  if (keyPressed[KEY_ID_DOWN] == true) gm->getSpaceShip()->shipMoveDown();
+
+  if (keyPressed[KEY_ID_FORWARD] == true)  gm->getSpaceShip()->shipMoveForward();
+  if (keyPressed[KEY_ID_BACKWARD] == true) {
+	  gm->getSpaceShip()->shipMoveBackward();
+  }
+  //fire
+  if (keyPressed[KEY_ID_Z] == true) {
+	  gm->weaponFire();
+  }
+  //reload
+  if (keyPressed[KEY_ID_F] == true) gm->getSpaceShip()->reload();
+  
+  if (keyPressed[KEY_ID_X] == true) {
+	  std::cout << gm->getSpaceShip()->getWeapon()->getAmmo() << std::endl;
+  }
+
+  if (keyPressed[KEY_ID_1] == true) gm->getSpaceShip()->changeWeapon(new Lazer(200));
+
+  if (keyPressed[KEY_ID_2] == true) {
+	  gm->getSpaceShip()->changeWeapon(new MachineGun(200));
+  }
+
+  if (keyPressed[KEY_ID_O] == true) {
+	  gm->addEnemies();
+	  std::cout << "Enemy!" << std::endl;
+  }
+  if (keyPressed[KEY_ID_P] == true) {
+	  gm->getEnemy()->move();
+  }
+
 
   glutSwapBuffers();//swap buffer objects ?
   glutPostRedisplay();
@@ -90,6 +149,52 @@ void keyDown(unsigned char key, int x, int y)
       keyPressed[KEY_ID_C] = true;
       break;
 
+	case 't':
+		keyPressed[KEY_ID_RIGHT] = true;
+		break;
+	case 'y':
+		keyPressed[KEY_ID_LEFT] = true;
+		break;
+
+	case 'u':
+		keyPressed[KEY_ID_UP] = true;
+		break;
+	case 'j':
+		keyPressed[KEY_ID_DOWN] = true;
+		break;
+
+	case 'g':
+		keyPressed[KEY_ID_FORWARD] = true;
+		break;
+	case 'b':
+		keyPressed[KEY_ID_BACKWARD] = true;
+		break;
+//fire
+	case 'z':
+		keyPressed[KEY_ID_Z] = true;
+		break;
+	case 'f':
+		keyPressed[KEY_ID_F] = true;
+		break;
+	
+	case 'x':
+		keyPressed[KEY_ID_X] = true;
+		break;
+
+	case 'o':
+		keyPressed[KEY_ID_O] = true;
+		break;
+	case 'p':
+		keyPressed[KEY_ID_P] = true;
+		break;
+	
+	case '1':
+		keyPressed[KEY_ID_1] = true;
+		break;
+	case '2':
+		keyPressed[KEY_ID_2] = true;
+		break;
+
     default:
       glutPostRedisplay();
   }
@@ -117,6 +222,52 @@ void keyUp(unsigned char key, int x, int y)
     case 'c':
       keyPressed[KEY_ID_C] = false;
       break;
+
+	case 't':
+		keyPressed[KEY_ID_RIGHT] = false;
+		break;
+	case 'y':
+		keyPressed[KEY_ID_LEFT] = false;
+		break;
+	
+	case 'u':
+		keyPressed[KEY_ID_UP] = false;
+		break;
+	case 'j':
+		keyPressed[KEY_ID_DOWN] = false;
+		break;
+
+	case 'g':
+		keyPressed[KEY_ID_FORWARD] = false;
+		break;
+	case 'b':
+		keyPressed[KEY_ID_BACKWARD] = false;
+		break;
+//fire
+	case 'z':
+		keyPressed[KEY_ID_Z] = false;
+		break;
+	case 'f':
+		keyPressed[KEY_ID_F] = false;//reload
+		break;
+
+	case 'x':
+		keyPressed[KEY_ID_X] = false;
+		break;
+
+	case 'o':
+		keyPressed[KEY_ID_O] = false;
+		break;
+	case 'p':
+		keyPressed[KEY_ID_P] = false;
+		break;
+
+	case '1':
+		keyPressed[KEY_ID_1] = false;
+		break;
+	case '2':
+		keyPressed[KEY_ID_2] = false;
+		break;
 
   }
 }
@@ -166,7 +317,7 @@ int main(int argc, char** argv)
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGB);
   glutInitWindowSize(700, 700); 
   glutInitWindowPosition(10, 10);
-  window = glutCreateWindow("Space Shooter 3D");
+  window = glutCreateWindow("My Space Shooter");
   
   init();
   glutKeyboardFunc(keyDown);

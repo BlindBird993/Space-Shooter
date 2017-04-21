@@ -4,43 +4,66 @@
 #include <GL/glew.h> 
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include "BMPLoader.h"
 #include "SceneObject.hpp"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "Weapon.h"
 
 
 class Enemy : public SceneObject
 {
 public:
-	Enemy();
+	Enemy(std::string type, float speed, int xBoundary, float startPos);
 	~Enemy();
+
+	int list_id;
+
+	std::vector< std::vector<float>> getVertexArr();
+	GLuint vertexbuffer;
+	bool getEnemyStatus();// if enemy status is not active - erase enemy from the scene
+
+	void setWeapon(Weapon* weapon);
+	Weapon* getWeapon() const;
+
+	void move();
 
 protected:
 	void privateInit();
 	void privateRender();
 	void privateUpdate();
 
+	glm::vec3 translateVec_;
+
 private:
 	float speed_;
 	float life_;
 	float armor_;
+	bool isActive_ = true;
 	
-	bool checkFlag = true;
-	float max_z = 50.0;
-	float min_z = 0.0;
+	std::string type_;
 
-	float max_y = 30.0;
+	Weapon* weapon_;
+	float startPos_;
+
+	
+	bool checkFlag = false;
+	float max_z = 50.0;
+	float min_z = -150.0;
+
+	float max_y = 10.0;
 	float min_y = 0.0;
 
-	double z_coord = 0.0;
+	int z_coord = 0;
 	double y_coord = 0.0;
 
-    BMPClass textureClass_;
 	GLuint textureName_;
 
+	std::vector< std::vector<float>> vertexArray_; //vertex array
+	std::vector< glm::vec3 > normalArray_; // normals array
+	std::vector< glm::uint > indexArray_;  // index array
 
+	int xBoundary_;
+	int xPos_;
 
 };
 
-#pragma once

@@ -2,12 +2,29 @@
 #include "SOIL.h"
 
 
+BattleField::BattleField(int width_, int height_, int depth_)
+{
+	this->width_ = width_;
+	this->height_ = height_;
+	this->depth_ = depth_;
+}
+
 BattleField::BattleField()
 {
 }
 
 BattleField::~BattleField()
 {
+}
+
+int BattleField::getBattleWidth()
+{
+	return width_;
+}
+
+int BattleField::getBattleDepth()
+{
+	return depth_;
 }
 
 void BattleField::privateInit()
@@ -56,24 +73,6 @@ void BattleField::privateInit()
 	}
 	int a = 7;
 	//texture initiation
-	/*
-	const char *texturePath = "../textures/colormap.bmp";
-	BMPLoad(texturePath, textureClass_);
-	glGenTextures(1, &textureName_);
-	glBindTexture(GL_TEXTURE_2D, textureName_);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, textureClass_.width, textureClass_.height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureClass_.bytes);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	*/
-
 	int width, height;
 
 	unsigned char* img = SOIL_load_image("../textures/colormap.bmp", &width, &height, 0, SOIL_LOAD_RGB);
@@ -101,45 +100,7 @@ void BattleField::privateInit()
 
 		SOIL_free_image_data(img);
 		glBindTexture(GL_TEXTURE_2D, 0);
-	
-	}
-
-	//textureName_ = SOIL_load_OGL_texture(
-	//	".. / textures / colormap.bmp",
-	//	SOIL_LOAD_AUTO,
-	//	SOIL_CREATE_NEW_ID,
-	//	SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-	//		
-	//	);
-	//if (textureName_ == 0) {
-	//
-	//	printf("Error in download '%s'", SOIL_last_result());
-	//}
-
-
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
-	////glTexImage2D(GL_TEXTURE_2D, 0, 3, textureClass_.width, textureClass_.height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureClass_.bytes);
-	//glBindTexture(GL_TEXTURE_2D, 0);
-
-	//GLuint tex_2d = SOIL_load_OGL_texture
-	//	(
-	//		"C:/Users/Igor Molchanov/Documents/Visual Studio 2015/Projects/SpaceShooter/textures/colormap.bmp",
-	//		SOIL_LOAD_AUTO,
-	//		SOIL_CREATE_NEW_ID,
-	//		SOIL_FLAG_MIPMAPS | SOIL_FLAG_COMPRESS_TO_DXT
-	//		);
-
-	//if (0 == tex_2d)
-	//{
-	//	printf("SOIL loading error: '%s'\n", SOIL_last_result());
-	//}
+		}
 }
 
 void BattleField::privateRender()
@@ -148,8 +109,8 @@ void BattleField::privateRender()
 	glEnable(GL_PRIMITIVE_RESTART);
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, textureName_);
-  // Render the battlefield
-	
+ 
+	// Render the battlefield
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -166,27 +127,7 @@ void BattleField::privateRender()
 	glDisable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_PRIMITIVE_RESTART);
-	//texture
-	
-
-
-	//glEnd();
-
-	// Enable texturing before render
-	//glEnable(GL_TEXTURE_2D);
-	//glBindTexture(GL_TEXTURE_2D, textureName_);
-	//glEnable(GL_PRIMITIVE_RESTART);
-	//// Render the battlefield
-	//glEnableClientState(GL_VERTEX_ARRAY); // enable vertex arrays
-	//glVertexPointer(3, GL_FLOAT, 0, &vertexArray_[0]); // set vertex pointer
-	//glDrawElements(GL_QUAD_STRIP, indexArray_.size(), GL_UNSIGNED_INT, &indexArray_[0]); //strips
-	//																					 //glDrawArrays (GL_POINTS,0,vertexArray_.size());
-	//glDisableClientState(GL_VERTEX_ARRAY); // disable vertex arrays
-	//glDisable(GL_PRIMITIVE_RESTART);
-
-	//glBindTexture(GL_TEXTURE_2D, 0); //unbind texture
-	//glDisable(GL_TEXTURE_2D);
-	
+	//texture	
 }
 
 void BattleField::privateUpdate()
