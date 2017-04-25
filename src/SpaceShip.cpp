@@ -89,6 +89,8 @@ void SpaceShip::privateInit()
 
 	particles_ptr.reset(new ParticlesEngineClass());
 	this->addSubObject(particles_ptr);
+	
+	spaceshipShader_.initShaders("../Shaders/red");
 
 	matrix_ = glm::translate(glm::mat4(), glm::vec3(0.0f, 10.0f, -5.0f)); 
 }
@@ -96,7 +98,9 @@ void SpaceShip::privateInit()
 void SpaceShip::privateRender()
 {
 //glEnable(GL_TEXTURE_2D);
+	spaceshipShader_.enable();
 	glCallList(list_id);
+	spaceshipShader_.disable();
   //render texture
 
   //glBindTexture(GL_TEXTURE_2D, textureName_);

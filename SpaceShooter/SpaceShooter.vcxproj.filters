@@ -13,6 +13,9 @@
     <Filter Include="textures">
       <UniqueIdentifier>{84c9820e-335a-433d-8b34-11c63319b93c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{35d7728d-d2f7-412c-b35f-0a235dadd115}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\app\main.cpp">
@@ -52,6 +55,18 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ParticlesEngineClass.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ShaderTest.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\shader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Cube.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ShaderOne.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,9 +122,51 @@
     <ClInclude Include="..\include\Lazer.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\ShaderTest.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ShaderOne.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="..\Shaders\brick.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\brick.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\fixed.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\fixed.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\phong.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\phong.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\red.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\red.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\reflection.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\reflection.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\bfshader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\bfshader.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\textures\colormap.bmp">

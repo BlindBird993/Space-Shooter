@@ -9,6 +9,7 @@
 #include "SceneObject.hpp"
 #include "glm/glm.hpp"
 #include <iostream>
+#include "ShaderOne.h"
 
 class BattleField : public SceneObject
 {
@@ -28,7 +29,15 @@ class BattleField : public SceneObject
 	private:
 
 	//BMPClass textureClass_;
-	GLuint textureName_;
+	GLuint textureName_;//texture
+	GLuint secondTextureName_;//hightmap
+
+	Shader vertexShader_;
+	Shader fragShader_;
+
+	Shader shader_;
+
+
 	int width_, height_, depth_;
 
     std::vector< glm::vec3 > vertexArray_; // Maybe two-dim vector and several arrays

@@ -153,11 +153,15 @@
     <ClCompile Include="..\src\BattleField.cpp" />
     <ClCompile Include="..\src\Bullets.cpp" />
     <ClCompile Include="..\src\Camera.cpp" />
+    <ClCompile Include="..\src\Cube.cpp" />
     <ClCompile Include="..\src\GameManager.cpp" />
     <ClCompile Include="..\src\ParticlesClass.cpp" />
     <ClCompile Include="..\src\ParticlesEngineClass.cpp" />
     <ClCompile Include="..\src\SceneObject.cpp" />
     <ClCompile Include="..\src\Enemy.cpp" />
+    <ClCompile Include="..\src\shader.cpp" />
+    <ClCompile Include="..\src\ShaderOne.cpp" />
+    <ClCompile Include="..\src\ShaderTest.cpp" />
     <ClCompile Include="..\src\SpaceShip.cpp" />
     <ClCompile Include="..\src\Weapon.cpp" />
     <ClCompile Include="BMPLoader.cpp" />
@@ -177,11 +181,25 @@
     <ClInclude Include="..\include\ParticlesClass.h" />
     <ClInclude Include="..\include\ParticlesEngineClass.h" />
     <ClInclude Include="..\include\SceneObject.hpp" />
+    <ClInclude Include="..\include\ShaderOne.h" />
+    <ClInclude Include="..\include\ShaderTest.h" />
     <ClInclude Include="..\include\SpaceShip.hpp" />
     <ClInclude Include="..\include\Weapon.h" />
     <ClInclude Include="BMPLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Shaders\bfshader.frag" />
+    <None Include="..\Shaders\bfshader.vert" />
+    <None Include="..\Shaders\brick.frag" />
+    <None Include="..\Shaders\brick.vert" />
+    <None Include="..\Shaders\fixed.frag" />
+    <None Include="..\Shaders\fixed.vert" />
+    <None Include="..\Shaders\phong.frag" />
+    <None Include="..\Shaders\phong.vert" />
+    <None Include="..\Shaders\red.frag" />
+    <None Include="..\Shaders\red.vert" />
+    <None Include="..\Shaders\reflection.frag" />
+    <None Include="..\Shaders\reflection.vert" />
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>

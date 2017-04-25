@@ -12,6 +12,7 @@
 #include "MachineGun.h"
 #include "Lazer.h"
 #include "Bullets.h"
+#include "ShaderOne.h"
 
 class SpaceShip : public SceneObject
 {
@@ -52,7 +53,7 @@ class SpaceShip : public SceneObject
     float life_;
     float armor_;
 	
-	BMPClass textureClass_;
+	Shader spaceshipShader_;
 	GLuint textureName_;
 
 	std::shared_ptr<ParticlesEngineClass> particles_ptr;

@@ -11,7 +11,7 @@
 #include "GameManager.hpp"
 #include "glm/glm.hpp"
 #include "Weapon.h"
-
+#include "ShaderTest.h"
 #include <iostream>
 
 std::shared_ptr<GameManager> gm;
@@ -311,8 +311,33 @@ void reshape(int w, int h)//resize
 //  gluLookAt(0.0, 0.0, 10.0,     0.0, 0.0, 0.0,    0.0, 1.0, 0.0);
 }
 
+
+int printOglError(char *file, int line)
+{
+	//
+	// Returns 1 if an OpenGL error occurred, 0 otherwise.
+	//
+	GLenum glErr;
+	int    retCode = 0;
+
+	glErr = glGetError();
+	while (glErr != GL_NO_ERROR)
+	{
+		printf("glError in file %s @ line %d: %s\n", file, line, gluErrorString(glErr));
+		retCode = 1;
+		glErr = glGetError();
+	}
+	return retCode;
+}
+
 int main(int argc, char** argv)
 {
+
+
+  int success = 0;
+  int gl_major, gl_minor;
+  GLchar *VertexShaderSource, *FragmentShaderSource;
+
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGB);
   glutInitWindowSize(700, 700); 
@@ -326,6 +351,10 @@ int main(int argc, char** argv)
   glutDisplayFunc(display);
   glutMouseFunc(mousePressed);
   glutMotionFunc(mouseMoved);
+
+  //readShaderSource("../Shaders/red", &VertexShaderSource, &FragmentShaderSource);
+  //success = installShaders(VertexShaderSource, FragmentShaderSource);
+  //success *= initRedShader();
 
   // Add other callback functions here..
 
