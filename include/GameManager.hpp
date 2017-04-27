@@ -11,6 +11,7 @@
 #include "AraragiKoyomiClass.h"
 #include "Camera.hpp"
 #include "Bullets.h"
+#include "Skybox.h"
 
 class GameManager : public SceneObject
 {
@@ -21,6 +22,7 @@ class GameManager : public SceneObject
     std::shared_ptr<Camera> getCam();
 	std::shared_ptr<SpaceShip> getSpaceShip();
 	std::shared_ptr<Enemy> getEnemy();
+	std::shared_ptr<Skybox> getSkybox();
 
 	void addEnemies();
 	void weaponFire();
@@ -168,6 +170,7 @@ class GameManager : public SceneObject
 	std::shared_ptr<AraragiKoyomiClass> koyomi_;
     std::shared_ptr<Camera> cam_;
 	std::shared_ptr<Bullets> bullets_;
+	std::shared_ptr<Skybox> skybox_;
 
 	std::vector< std::shared_ptr<Bullets> > bulletsArr_;
 	std::vector< std::shared_ptr<Bullets> > enemyBulletsArr_;

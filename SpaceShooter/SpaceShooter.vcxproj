@@ -162,6 +162,7 @@
     <ClCompile Include="..\src\shader.cpp" />
     <ClCompile Include="..\src\ShaderOne.cpp" />
     <ClCompile Include="..\src\ShaderTest.cpp" />
+    <ClCompile Include="..\src\Skybox.cpp" />
     <ClCompile Include="..\src\SpaceShip.cpp" />
     <ClCompile Include="..\src\Weapon.cpp" />
     <ClCompile Include="BMPLoader.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="..\include\SceneObject.hpp" />
     <ClInclude Include="..\include\ShaderOne.h" />
     <ClInclude Include="..\include\ShaderTest.h" />
+    <ClInclude Include="..\include\Skybox.h" />
     <ClInclude Include="..\include\SpaceShip.hpp" />
     <ClInclude Include="..\include\Weapon.h" />
     <ClInclude Include="BMPLoader.h" />
@@ -200,11 +202,27 @@
     <None Include="..\Shaders\red.vert" />
     <None Include="..\Shaders\reflection.frag" />
     <None Include="..\Shaders\reflection.vert" />
+    <None Include="..\Shaders\skybox.frag" />
+    <None Include="..\Shaders\skybox.vert" />
+    <None Include="..\textures\testhighmap.hfz" />
+    <None Include="..\textures\testmap.dmf" />
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\skybox\skybox_down.bmp" />
+    <Image Include="..\skybox\skybox_east.bmp" />
+    <Image Include="..\skybox\skybox_north.bmp" />
+    <Image Include="..\skybox\skybox_south.bmp" />
+    <Image Include="..\skybox\skybox_up.bmp" />
+    <Image Include="..\skybox\skybox_west.bmp" />
+    <Image Include="..\textures\1.bmp" />
+    <Image Include="..\textures\2.jpg" />
+    <Image Include="..\textures\33.bmp" />
     <Image Include="..\textures\araragi.jpg" />
-    <Image Include="..\textures\colormap.bmp" />
+    <Image Include="..\textures\colorMap2012.bmp" />
+    <Image Include="..\textures\heightMap2012.bmp" />
+    <Image Include="..\textures\lightMap2012.bmp" />
+    <Image Include="..\textures\normalMap2012.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

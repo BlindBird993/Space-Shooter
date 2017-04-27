@@ -15,8 +15,10 @@ void GameManager::privateInit()
 
   // Adding the camera to the scene
   cam_.reset(new Camera());
-  //  this->addSubObject(cam_);
+  this->addSubObject(cam_);
   //  matrix_.translate(0.0f, 0.0f, -99.0f);
+  skybox_.reset(new Skybox(cam_));
+  this->addSubObject(skybox_);
 
   bf_.reset(new BattleField());
   this->addSubObject(bf_);
@@ -31,6 +33,8 @@ void GameManager::privateInit()
 
   koyomi_.reset(new AraragiKoyomiClass());
   this->addSubObject(koyomi_);
+
+
 
  // addEnemies();
 }
@@ -132,6 +136,11 @@ std::shared_ptr<SpaceShip> GameManager::getSpaceShip()
 std::shared_ptr<Enemy> GameManager::getEnemy()
 {
 	return enemy_;
+}
+
+std::shared_ptr<Skybox> GameManager::getSkybox()
+{
+	return skybox_;
 }
 
 void GameManager::addEnemies()

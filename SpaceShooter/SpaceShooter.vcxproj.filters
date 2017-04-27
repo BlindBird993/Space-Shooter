@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{35d7728d-d2f7-412c-b35f-0a235dadd115}</UniqueIdentifier>
     </Filter>
+    <Filter Include="skybox">
+      <UniqueIdentifier>{e377e7d3-5bd1-4c1d-a5b9-d69a34281eed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\app\main.cpp">
@@ -67,6 +70,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ShaderOne.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Skybox.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,6 +134,9 @@
     <ClInclude Include="..\include\ShaderOne.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Skybox.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -167,13 +176,61 @@
     <None Include="..\Shaders\bfshader.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="..\textures\testhighmap.hfz">
+      <Filter>textures</Filter>
+    </None>
+    <None Include="..\textures\testmap.dmf">
+      <Filter>textures</Filter>
+    </None>
+    <None Include="..\Shaders\skybox.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Shaders\skybox.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\textures\colormap.bmp">
-      <Filter>textures</Filter>
-    </Image>
     <Image Include="..\textures\araragi.jpg">
       <Filter>textures</Filter>
+    </Image>
+    <Image Include="..\textures\colorMap2012.bmp">
+      <Filter>textures</Filter>
+    </Image>
+    <Image Include="..\textures\heightMap2012.bmp">
+      <Filter>textures</Filter>
+    </Image>
+    <Image Include="..\textures\lightMap2012.bmp">
+      <Filter>textures</Filter>
+    </Image>
+    <Image Include="..\textures\normalMap2012.bmp">
+      <Filter>textures</Filter>
+    </Image>
+    <Image Include="..\textures\1.bmp">
+      <Filter>textures</Filter>
+    </Image>
+    <Image Include="..\textures\2.jpg">
+      <Filter>textures</Filter>
+    </Image>
+    <Image Include="..\textures\33.bmp">
+      <Filter>textures</Filter>
+    </Image>
+    <Image Include="..\skybox\skybox_down.bmp">
+      <Filter>skybox</Filter>
+    </Image>
+    <Image Include="..\skybox\skybox_east.bmp">
+      <Filter>skybox</Filter>
+    </Image>
+    <Image Include="..\skybox\skybox_north.bmp">
+      <Filter>skybox</Filter>
+    </Image>
+    <Image Include="..\skybox\skybox_south.bmp">
+      <Filter>skybox</Filter>
+    </Image>
+    <Image Include="..\skybox\skybox_up.bmp">
+      <Filter>skybox</Filter>
+    </Image>
+    <Image Include="..\skybox\skybox_west.bmp">
+      <Filter>skybox</Filter>
     </Image>
   </ItemGroup>
 </Project>

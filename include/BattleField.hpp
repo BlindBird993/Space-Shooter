@@ -10,6 +10,7 @@
 #include "glm/glm.hpp"
 #include <iostream>
 #include "ShaderOne.h"
+#include "Skybox.h"
 
 class BattleField : public SceneObject
 {
@@ -31,6 +32,11 @@ class BattleField : public SceneObject
 	//BMPClass textureClass_;
 	GLuint textureName_;//texture
 	GLuint secondTextureName_;//hightmap
+
+	GLuint lightTextureName_;//light
+	GLuint normalTextureName_;//normal
+
+	GLuint skybox_;
 
 	Shader vertexShader_;
 	Shader fragShader_;
