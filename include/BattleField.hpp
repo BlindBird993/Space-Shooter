@@ -8,6 +8,7 @@
 //#include "BMPLoader.h"
 #include "SceneObject.hpp"
 #include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 #include <iostream>
 #include "ShaderOne.h"
 #include "Skybox.h"
@@ -21,6 +22,8 @@ class BattleField : public SceneObject
 
 		int getBattleWidth();
 		int getBattleDepth();
+		int getBattleHeight();
+		void setZpos(float zpos);
 
   protected:
         virtual void privateInit();

@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 #include <windows.h>
 #include <GL/glew.h> 
 #include <GL/gl.h>
@@ -7,6 +7,9 @@
 #include "SceneObject.hpp"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "Weapon.h"
 
 
@@ -22,10 +25,24 @@ public:
 	GLuint vertexbuffer;
 	bool getEnemyStatus();// if enemy status is not active - erase enemy from the scene
 
-	void setWeapon(Weapon* weapon);
-	Weapon* getWeapon() const;
+	void setWeapon(std::string weapon);
+	std::string getWeapon() const;
 
 	void move();
+	glm::vec3 getPos() const;
+	float getRadius() const;
+
+	void createEnemy();
+	bool shoot();
+	int getAmmo();
+	void setAmmo(int ammo);
+
+	float maxX;
+	float minX;
+	float maxY;
+	float minY;
+	float maxZ;
+	float minZ;
 
 protected:
 	void privateInit();
@@ -42,7 +59,8 @@ private:
 	
 	std::string type_;
 
-	Weapon* weapon_;
+	std::string currentWeapon;
+	int bulletAmount;
 	float startPos_;
 
 	

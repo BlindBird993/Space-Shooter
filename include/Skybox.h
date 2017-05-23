@@ -14,11 +14,13 @@
 
 
 
-class Skybox : public SceneObject
+static class Skybox : public SceneObject
 {
 public:
 	Skybox(std::shared_ptr<Camera> camera);
 	~Skybox();
+    GLuint getTextures();
+
 
 protected:
 	virtual void privateInit();
@@ -32,7 +34,7 @@ private:
 
 	int list_id;
 
-	GLuint cubeTextures_;
+
 
 	Shader shader_;
 
@@ -40,5 +42,6 @@ private:
 	GLuint skyboxVAO, skyboxVBO;
 
 	std::shared_ptr<Camera> cam_;
+    GLuint cubeTextures_;
 
 };

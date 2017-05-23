@@ -13,6 +13,10 @@ Skybox::~Skybox()
 {
 
 }
+GLuint Skybox::getTextures()
+{
+	return cubeTextures_;
+}
 void Skybox::privateInit()
 {
 	loadCubemap();
@@ -20,11 +24,14 @@ void Skybox::privateInit()
 	shader_.initShaders("../Shaders/skybox");
 	shader_.enable();
 
+	GLint texture1 = glGetUniformLocation(shader_.getProg(), "skybox");
+	glUniform1i(texture1, 0);
+
 	//GLint texSampler;
 	//texSampler = glGetUniformLocation(shader_.getProg(), "Skybox");
 	//glUniform1i(texSampler, 0);
 
-	//shader_.disable();
+	shader_.disable();
 
 }
 
@@ -293,8 +300,6 @@ void Skybox::privateRender()
 		4,0,3,7,
 		0,4,5,1,
 		2,6,7,3
-
-
 	};
 
 	glBegin(GL_QUADS);

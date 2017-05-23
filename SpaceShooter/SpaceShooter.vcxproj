@@ -71,6 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>C:\Users\Igor Molchanov\Documents\Visual Studio 2015\Projects\SpaceShooter\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -89,12 +90,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../;../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Igor Molchanov\Documents\Visual Studio 2015\Projects\SpaceShooter\include\assimp\Compiler;C:\Users\Igor Molchanov\Documents\Visual Studio 2015\Projects\SpaceShooter\include\assimp;../;../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>freeglut.lib;opengl32.lib;glew32.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freeglut.lib;opengl32.lib;glew32.lib;SOIL.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -149,10 +150,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\app\main.cpp" />
+    <ClCompile Include="..\src\AmmoGun.cpp" />
+    <ClCompile Include="..\src\AmmoLazer.cpp" />
+    <ClCompile Include="..\src\AmmoRocket.cpp" />
     <ClCompile Include="..\src\AraragiKoyomiClass.cpp" />
     <ClCompile Include="..\src\BattleField.cpp" />
+    <ClCompile Include="..\src\BoundingBox.cpp" />
     <ClCompile Include="..\src\Bullets.cpp" />
     <ClCompile Include="..\src\Camera.cpp" />
+    <ClCompile Include="..\src\Coin.cpp" />
     <ClCompile Include="..\src\Cube.cpp" />
     <ClCompile Include="..\src\GameManager.cpp" />
     <ClCompile Include="..\src\ParticlesClass.cpp" />
@@ -164,15 +170,21 @@
     <ClCompile Include="..\src\ShaderTest.cpp" />
     <ClCompile Include="..\src\Skybox.cpp" />
     <ClCompile Include="..\src\SpaceShip.cpp" />
+    <ClCompile Include="..\src\Water.cpp" />
     <ClCompile Include="..\src\Weapon.cpp" />
     <ClCompile Include="BMPLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\AmmoGun.h" />
+    <ClInclude Include="..\include\AmmoLazer.h" />
+    <ClInclude Include="..\include\AmmoRocket.h" />
     <ClInclude Include="..\include\AraragiKoyomiClass.h" />
     <ClInclude Include="..\include\BattleField.hpp" />
+    <ClInclude Include="..\include\BoundingBox.h" />
     <ClInclude Include="..\include\Bullets.h" />
     <ClInclude Include="..\include\Camera.hpp" />
     <ClInclude Include="..\include\Clock.hpp" />
+    <ClInclude Include="..\include\Coin.h" />
     <ClInclude Include="..\include\FpsCounter.hpp" />
     <ClInclude Include="..\include\GameManager.hpp" />
     <ClInclude Include="..\include\Enemy.h" />
@@ -186,6 +198,7 @@
     <ClInclude Include="..\include\ShaderTest.h" />
     <ClInclude Include="..\include\Skybox.h" />
     <ClInclude Include="..\include\SpaceShip.hpp" />
+    <ClInclude Include="..\include\Water.h" />
     <ClInclude Include="..\include\Weapon.h" />
     <ClInclude Include="BMPLoader.h" />
   </ItemGroup>
@@ -204,6 +217,8 @@
     <None Include="..\Shaders\reflection.vert" />
     <None Include="..\Shaders\skybox.frag" />
     <None Include="..\Shaders\skybox.vert" />
+    <None Include="..\Shaders\water.frag" />
+    <None Include="..\Shaders\water.vert" />
     <None Include="..\textures\testhighmap.hfz" />
     <None Include="..\textures\testmap.dmf" />
     <None Include="ClassDiagram.cd" />
@@ -223,6 +238,7 @@
     <Image Include="..\textures\heightMap2012.bmp" />
     <Image Include="..\textures\lightMap2012.bmp" />
     <Image Include="..\textures\normalMap2012.bmp" />
+    <Image Include="..\textures\particle.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

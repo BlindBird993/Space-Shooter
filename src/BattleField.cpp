@@ -27,6 +27,16 @@ int BattleField::getBattleDepth()
 	return depth_;
 }
 
+int BattleField::getBattleHeight()
+{
+	return height_;
+}
+
+void BattleField::setZpos(float zpos)
+{
+	this->matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, -zpos));
+}
+
 void BattleField::privateInit()
 {
 	auto glmVec = glm::vec3{};
@@ -234,5 +244,6 @@ void BattleField::privateRender()
 
 void BattleField::privateUpdate()
 {
+	matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, 3.0f));
 }
 

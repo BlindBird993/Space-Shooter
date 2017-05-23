@@ -10,7 +10,7 @@ in vec2 TexCoords;
 //    color = texture(skybox,TexCoords);
 //}
 
-#version 120 
+//#version 120 
 //http://www.c-jump.com/bcc/common/Talk3/OpenGL/Wk13_skybox/Wk13_skybox.html#W01_0060_skybox_shader_code 
 out vec4 vFragColor; 
 uniform samplerCube skybox; 

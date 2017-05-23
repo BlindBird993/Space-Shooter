@@ -8,6 +8,14 @@ Enemy::Enemy(std::string type, float speed, int xBoundary, float startPos)
 	this->xBoundary_ = xBoundary;
 	this->xPos_ = std::abs(xBoundary_ / 2);
 	this->startPos_ = startPos * -1;
+	this->currentWeapon = "MachineGun";
+
+	maxX = 5;
+	minX = 0;
+	maxY = 5;
+	minY = 0;
+	maxZ = startPos_+5;
+	minZ = startPos_;
 	
 	privateInit();
 }
@@ -26,15 +34,93 @@ bool Enemy::getEnemyStatus()
 	return isActive_;
 }
 
-void Enemy::setWeapon(Weapon * weapon)
+void Enemy::setWeapon(std::string weapon)
 {
-	this->weapon_ = weapon;
+	this->currentWeapon = weapon;
 }
 
-Weapon * Enemy::getWeapon() const
+std::string Enemy::getWeapon() const
 {
-	return this->weapon_;
+	return this->currentWeapon;
 }
+
+//get position
+glm::vec3 Enemy::getPos() const
+{
+	return glm::vec3(matrix_[3][0], matrix_[3][1], matrix_[3][2]);
+}
+
+
+float Enemy::getRadius() const
+{
+	auto eps = 1e-5;
+
+	float centX1, centY1, centZ1, radius;
+
+	if ((minX + maxX) / 2 < eps) centX1 = 0;
+	else centX1 = (minX + maxX) / 2;
+
+	if ((minY + maxY) / 2 < eps) centY1 = 0;
+	else centY1 = (minY + maxY) / 2;
+	/******************************************************************************************/
+	//if ((zMin + zMax) / 2 < eps) centY = 0;
+	//else centZ = (zMin + zMax) / 2;
+
+	float distanceX1 = 0.0f;
+	float xVarMax1 = std::abs(maxX) - std::abs(centX1);
+	float xVarMin1 = std::abs(minX) - std::abs(centX1);
+
+	if (xVarMax1 > xVarMin1) distanceX1 = xVarMax1;
+	else distanceX1 = xVarMin1;
+
+	float distanceY1 = 0.0f;
+	float yVarMax1 = std::abs(maxY) - std::abs(centY1);
+	float yVarMin1 = std::abs(minY) - std::abs(centY1);
+
+	if (yVarMax1 > yVarMin1) distanceY1 = yVarMax1;
+	else distanceY1 = yVarMin1;
+
+	if (distanceX1 > distanceY1) radius = distanceX1;
+	else radius = distanceY1;
+
+	return radius;
+}
+
+void Enemy::createEnemy()
+{
+	glColor3f(1.0f, 0.0f, 0.0f);
+	float size = 5.0f;
+
+	glBegin(GL_QUADS);
+	glNormal3f(5.0f, 5.0f, -512.0f);
+
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-size, -size, startPos_);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(size, -size, startPos_);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(size, size, startPos_);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-size, size, startPos_);
+
+	glEnd();
+}
+
+bool Enemy::shoot()
+{
+	if (bulletAmount > 0) {
+		bulletAmount--;
+		return true;
+	}
+	return false;
+}
+
+int Enemy::getAmmo()
+{
+	return bulletAmount;
+}
+
+void Enemy::setAmmo(int ammo)
+{
+	bulletAmount = ammo;
+}
+
 
 void Enemy::move()
 {
@@ -45,22 +131,9 @@ void Enemy::privateInit()
 {
 
 	list_id = glGenLists(1);
-	glNewList(list_id, GL_COMPILE);//begin new list
-
-	glColor3f(1.0f, 0.0f, 0.0f);
-	float size = 5.0f;
-
-	glBegin(GL_QUADS);
-	glNormal3f(5.0f, 5.0f, -512.0f);
-
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(-size, -size, startPos_); vertexArray_.push_back(std::vector<float>{ -size, -size, startPos_ });
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(size, -size, startPos_);	vertexArray_.push_back(std::vector<float>{ size, -size, startPos_ });
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(size, size, startPos_);   vertexArray_.push_back(std::vector<float>{ size, size, startPos_});
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(-size, size, startPos_);  vertexArray_.push_back(std::vector<float>{ -size, size, startPos_});
-
-	glEnd();
-
-	glEndList();//end new list
+	glNewList(list_id, GL_COMPILE);
+	createEnemy();
+	glEndList();
 
 	
 
@@ -135,6 +208,7 @@ void Enemy::privateRender()
 	//glBindTexture(GL_TEXTURE_2D, textureName_);
 	
 	glCallList(list_id);
+	glFlush();
 
 	//glColor3f(1.0f, 1.0f, 0.0f);
 	//float size = 5.0f;
@@ -198,6 +272,8 @@ void Enemy::privateUpdate()
 
 	if (xPos_ == max_x) checkFlag = true;
 	if (xPos_ == min_x) checkFlag = false;
+	
+	
 
 }
 

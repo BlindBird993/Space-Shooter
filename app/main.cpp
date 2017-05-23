@@ -49,19 +49,19 @@ void display()//rendering
 
   if (keyPressed[KEY_ID_W] == true) { 
 	  gm->getCam()->moveForward(); 
-	  gm->getSpaceShip()->shipMoveForward();
+	  //gm->getSpaceShip()->shipMoveForward();
   }
   if (keyPressed[KEY_ID_A] == true) { 
-	  gm->getSpaceShip()->shipMoveLeft();
+	 // gm->getSpaceShip()->shipMoveLeft();
 	  gm->getCam()->moveLeft();
   }
   if (keyPressed[KEY_ID_D] == true) { 
-	  gm->getSpaceShip()->shipMoveRight(); 
+	 // gm->getSpaceShip()->shipMoveRight(); 
 	  gm->getCam()->moveRight();
   }
 
   if (keyPressed[KEY_ID_S] == true) { 
-	  gm->getSpaceShip()->shipMoveBackward();
+	 // gm->getSpaceShip()->shipMoveBackward();
 	  gm->getCam()->moveBackward(); 
 	  
   }
@@ -89,23 +89,23 @@ void display()//rendering
   //fire
   if (keyPressed[KEY_ID_Z] == true) {
 	  gm->weaponFire();
+	  //std::cout << gm->getSpaceShip()->getPos()[1] << std::endl;
   }
   //reload
   if (keyPressed[KEY_ID_F] == true) gm->getSpaceShip()->reload();
   
   if (keyPressed[KEY_ID_X] == true) {
-	  std::cout << gm->getSpaceShip()->getWeapon()->getAmmo() << std::endl;
+	  std::cout << gm->getSpaceShip()->getMachineGunAmount() << std::endl;
   }
 
-  if (keyPressed[KEY_ID_1] == true) gm->getSpaceShip()->changeWeapon(new Lazer(200));
+  //if (keyPressed[KEY_ID_1] == true) gm->getSpaceShip()->changeWeapon("Lazer");
 
-  if (keyPressed[KEY_ID_2] == true) {
-	  gm->getSpaceShip()->changeWeapon(new MachineGun(200));
-  }
+  //if (keyPressed[KEY_ID_2] == true) {
+//	  gm->getSpaceShip()->changeWeapon("MachineGun");
+ // }
 
   if (keyPressed[KEY_ID_O] == true) {
 	  gm->addEnemies();
-	  std::cout << "Enemy!" << std::endl;
   }
   if (keyPressed[KEY_ID_P] == true) {
 	  gm->getEnemy()->move();

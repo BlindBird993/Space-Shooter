@@ -1,19 +1,24 @@
 
-uniform vec4 camPos;
+varying vec3 norm;
+varying vec3 viewVec;
 
-varying vec3 normal;
-varying vec3 incident;
 
-void main(void)
+void main()
 {
-
-  normal = gl_Normal;
-  
-  vec4 position = gl_Vertex;
-  
-  // Calculate incident vector
-  incident = normalize(position.xyz - camPos.xyz);
-  
-  // vertex position
-  gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+	vec4 v = vec4(gl_Vertex);
+	gl_Position = gl_ModelViewProjectionMatrix * v;
+    vec3 ecPosition = vec3(gl_ModelViewMatrix * gl_Vertex);
+    norm      = normalize(gl_NormalMatrix * gl_Normal);
+    viewVec    = normalize(-ecPosition);
 }
+
+//varying vec3 Normal;
+//varying vec3 EyeDir;
+//uniform samplerCube cube_texture;
+
+//void main()
+//{
+//        gl_Position = gl_ModelViewProjectionMatrix*gl_Vertex;
+//        Normal = gl_NormalMatrix * gl_Normal;
+//        EyeDir = vec3(gl_ModelViewMatrix * gl_Vertex);
+//}

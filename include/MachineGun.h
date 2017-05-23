@@ -9,6 +9,6 @@ public:
 	MachineGun(int ammo) : Weapon("MachineGun", ammo) { }
 
 	float getDamage() const { return 100; }
-	int getRange() const { return 50; }
+	int getRange() const { return 200; }
 
 };
