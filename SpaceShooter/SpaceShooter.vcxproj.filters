@@ -93,6 +93,12 @@
     <ClCompile Include="..\src\BoundingBox.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\FPSCounter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Model_OBJ.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\BattleField.hpp">
@@ -170,7 +176,10 @@
     <ClInclude Include="..\include\AmmoRocket.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\BoundingBox.h">
+    <ClInclude Include="..\include\FPSCounter.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Model_OBJ.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

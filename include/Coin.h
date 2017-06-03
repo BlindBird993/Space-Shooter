@@ -25,12 +25,13 @@ public:
 
 	GLUquadricObj *quadratic;
 
-	void drawTorus(double r, double c, int rSeg, int cSeg);
+	void drawTorus(int numc, int numt);
 	std::vector< std::vector<float>> getVertexArr();
 
 	glm::vec3 getPos() const;
 	glm::vec3 getDS() const;
 	float getRadius() const;
+	GLuint theTorus;
 
 	float maxX;
 	float minX;
@@ -46,4 +47,8 @@ protected:
 	void privateInit();
 	void privateRender();
 	void privateUpdate();
+
+	bool testFlag = false;
+	GLfloat     rtri = 0.0f;                       // Angle For The Triangle ( NEW )
+	GLfloat     rquad = 0.0f;                      // Angle For The Quad     ( NEW )
 };

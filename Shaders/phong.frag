@@ -1,4 +1,3 @@
-
 uniform vec3 ObjColor;
 
 varying vec3 norm;

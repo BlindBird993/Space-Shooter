@@ -1,4 +1,4 @@
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <windows.h>
 #include <GL/glew.h>  
 #include <GL/freeglut.h>
@@ -12,10 +12,12 @@
 #include "glm/glm.hpp"
 #include "Weapon.h"
 #include "ShaderTest.h"
+#include "FPSCounter.h"
 #include <iostream>
 
 std::shared_ptr<GameManager> gm;
-siut::FpsCounter counter;
+//siut::FpsCounter counter;
+std::shared_ptr<FPSCounter> fpscounter;
 
 int window;
 
@@ -23,15 +25,18 @@ bool keyPressed[30];
 int mousePosX, mousePosY; 
 float moveX, moveY;
 
+void getFps(int x, int y, std::string text);
+
 void init()//preinitialization before rendering
 {
   glClearColor(0.0, 0.0, 0.0, 0.0);
   glShadeModel(GL_SMOOTH);
   glEnable(GL_DEPTH_TEST);
+  fpscounter = std::make_shared<FPSCounter>();
 
   GLenum err = glewInit();
 
-  counter.start();//start of fps counter
+  //counter.start();//start of fps counter
 
   gm.reset(new GameManager());
   gm->init();//game manager initialization
@@ -44,8 +49,13 @@ void display()//rendering
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//clearing the scene
 
-  gm->update(counter.fps());
+  gm->update(1);
   gm->render();
+  fpscounter->CalculateFrameRate();
+  getFps(900, 735, "FPS: " + std::to_string(int(fpscounter->fps)));
+  getFps(5, 735, "MachineGun: " + std::to_string(gm->getSpaceShip()->getMachineGunAmount()));
+  getFps(5, 700, "Laser: " + std::to_string(gm->getSpaceShip()->getLaserAmount()));
+  getFps(450, 735, "Score: 100");
 
   if (keyPressed[KEY_ID_W] == true) { 
 	  gm->getCam()->moveForward(); 
@@ -360,4 +370,30 @@ int main(int argc, char** argv)
 
   glutMainLoop();
   return 0;
+}
+
+void getFps(int x, int y, std::string text)
+{
+	char string[64];
+	sprintf(string, "something");
+	//(x,y) is from the bottom left of the window
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0, 1024, 0, 768, -1.0f, 1.0f);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glPushAttrib(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
+	glRasterPos2i(x, y);
+	for (int i = 0; i < text.size(); i++)
+	{
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+	}
+	glPopAttrib();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
 }

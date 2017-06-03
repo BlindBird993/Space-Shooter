@@ -108,26 +108,13 @@ void Water::privateRender()
 
 void Water::privateUpdate()
 {
-	/*shader_.enable();
-	waveTime_ += waveFreq_;
-	glUniform1f(glGetUniformLocation(shader_.getProg(), "waveTime"), waveTime_);*/
-	//pos_ += step_;
+
 	waveTime_ += waveFreq_;
 
 	shader_.enable();
 	glUniform1f(glGetUniformLocation(shader_.getProg(), "waveTime"), waveTime_);
 	shader_.disable();
-	// Translate the water into a loop
-	//if (pos_.z < length_ * 10)
-	//{
-	//	matrix_ = glm::translate(matrix_, getStep());
-	//}
-	//else
-	//{
-	//	pos_.z = -length_ * 10.0f;
-	//	matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, -length_*20.0f));
-	//}
-	//shader_.disable();
+	matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, 3.0f));
 }
 
 glm::vec3 Water::getPos() const
@@ -143,7 +130,7 @@ glm::vec3 Water::getStep() const
 void Water::createArrays()
 {
 	int CONST_SIZE_X = 32;
-	int CONST_SIZE_Z = 64;
+	int CONST_SIZE_Z = 512;
 	float x_coord = 0.0;
 	float z_coord = 0.0;
 	// Create vertex array
@@ -202,4 +189,9 @@ void Water::shaderRender(std::shared_ptr<Skybox> skybox, std::vector<unsigned in
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_PRIMITIVE_RESTART);
+}
+
+void Water::setZpos(float zpos)
+{
+	this->matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, -zpos));
 }

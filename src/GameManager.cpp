@@ -21,9 +21,6 @@ void GameManager::privateInit()
   skybox_.reset(new Skybox(cam_));
   this->addSubObject(skybox_);
 
-  //bf_.reset(new BattleField());
-  //this->addSubObject(bf_);
-
   bf1_.reset(new BattleField(battlefieldWidth_, battlefieldDepth_, battlefieldHeight_));
   this->addSubObject(bf1_);
 
@@ -36,18 +33,23 @@ void GameManager::privateInit()
 
   enemy_.reset(new Enemy("ordinary",1,battlefieldWidth_,battlefieldDepth_));
   //enemy_->setWeapon(new MachineGun(9999));
-  attackingEnemyArr_.push_back(enemy_);
+  enemyArr_.push_back(enemy_);
   this->addSubObject(enemy_);
 
   koyomi_.reset(new AraragiKoyomiClass());
   this->addSubObject(koyomi_);
 
+/*  coin_.reset(new Coin());
+  this->addSubObject(coin_)*/
+
   water_.reset(new Water(skybox_));
   this->addSubObject(water_);
 
+  ammogun_.reset(new AmmoGun(-100));
+  this->addSubObject(ammogun_);
 
 
- // addEnemies();
+
 }
 
 void GameManager::privateRender()
@@ -73,8 +75,8 @@ void GameManager::privateUpdate()
   // Instead of adding alle objects in the scene as subobject to the camera they are added as subobjects
   // to the game manager. Therefore, we set the game manager matrix equal to the camera matrix. 
   this->matrix_ = cam_->getMatrix();
+  //arrayCounter_1 = 1;
 
-  // BATTLEFIELD flipping
   if (bf1_->getMatrix()[3].z >= 512)
   {
 	  bf1_->setZpos(2 * battlefieldDepth_);
@@ -83,7 +85,10 @@ void GameManager::privateUpdate()
   {
 	  bf2_->setZpos(2 * battlefieldDepth_);
   }
-
+  if (water_->getMatrix()[3].z >= 512)
+  {
+	  water_->setZpos(battlefieldDepth_);
+  }
 
   //if (spaceship_ != nullptr){
 	 // this->matrix_[3][0] = spaceship_->getMatrix()[3][0] - 5;
@@ -99,7 +104,20 @@ void GameManager::privateUpdate()
 		  this->removeSubObject(bulletsArr_.at(i));
 		  bulletsArr_.erase(bulletsArr_.begin() + i--);
 	  }
+
   }
+
+  //addEnemies();
+  //for (int i = 0; i < bulletsArr_.size(); i++)
+  //{
+  //	if (bulletsArr_.at(i)->collFlag == true) {
+  //	 
+  //	 this->removeSubObject(bulletsArr_.at(i));
+  //	 bulletsArr_.erase(bulletsArr_.begin() + i--);
+  //	}
+  //}
+
+
   //Enemy fire
   for (int i = 0; i < attackingEnemyArr_.size(); i++)
   {
@@ -143,13 +161,6 @@ void GameManager::privateUpdate()
 	  for (int i = 0; i < attackingEnemyArr_.size(); i++)
 	  {
 		  auto boundary = attackingEnemyArr_.at(i)->getMatrix()[3].z;
-		  auto testVarEnemy = attackingEnemyArr_.at(i)->getPos()[2];
-
-		  if (findCollSpaceShipVsEnemy(spaceship_, attackingEnemyArr_.at(i))) {
-			  //std::cout << "Foo" << std::endl;
-			  this->removeSubObject(attackingEnemyArr_.at(i));
-			  attackingEnemyArr_.erase(attackingEnemyArr_.begin() + i--);
-		  }
 
 		  if (boundary > battlefieldDepth_)
 		  {
@@ -169,22 +180,11 @@ void GameManager::privateUpdate()
 		  enemyBulletsArr_.erase(enemyBulletsArr_.begin() + i--);
 	  }
   }
-/******************************************************************/
-  //if (attackingEnemyArr_.empty() && enemyArr_.empty()) {
-	 // 
-	 // for (int i = 0; i < enemyBulletsArr_.size(); i++)
-	 // {
-		//this->removeSubObject(enemyBulletsArr_.at(i));
-		//enemyBulletsArr_.erase(enemyBulletsArr_.begin() + i--);
-	 // }
-	 // enemyBulletsArr_.clear();
-  //}
-  //for (int i = 0; i < enemyArr_.size(); i++)
-  //{
-	  //handleCollEnemyVsBullets(bulletsArr_.at(i), attackingEnemyArr_);
-handleCollEnemyVsBullets(bulletsArr_, enemyArr_);
 
-  //}
+handleCollEnemyVsBullets(bulletsArr_, enemyArr_);
+handleCollEnemyVsBullets(bulletsArr_, attackingEnemyArr_);
+handleCollAmmoVsBullets(ammogun_, bulletsArr_);
+//std::cout << enemyArr_.size() << std::endl;
 }
 
 std::shared_ptr<Camera> GameManager::getCam()
@@ -210,7 +210,7 @@ std::shared_ptr<Skybox> GameManager::getSkybox()
 void GameManager::addEnemies()
 { 
 
-	float speed = static_cast <float> (rand()% 5 + 1);
+	float speed = static_cast <float> (rand()% 3 + 1);
 	int xStartPos = rand() % 32 + 20;
 	//random start position
 		enemy_ = std::make_shared<Enemy>(*(new Enemy("ordinary", speed, xStartPos, battlefieldDepth_)));
@@ -221,7 +221,7 @@ void GameManager::addEnemies()
 			enemy_->setAmmo(300);
 			attackingEnemyArr_.push_back(enemy_);
 			this->addSubObject(enemy_);
-			enemyArr_.push_back(enemy_);
+			//enemyArr_.push_back(enemy_);
 
 			enemyCounter_ = 0;
 		}
@@ -232,6 +232,7 @@ void GameManager::addEnemies()
 
 			enemyCounter_++;
 		}
+		
 }
 
 void GameManager::weaponFire()
@@ -242,13 +243,18 @@ void GameManager::weaponFire()
 	{
 		auto position = spaceship_->getMatrix();
 
+		//std::cout << position[3][0]<<" "<< position[3][1] << std::endl;
+
 		//weapon->shoot();																			// Lower ammo count of weapon
 		bullets_ = std::make_shared<Bullets>(*(new Bullets(weapon, position,true, battlefieldDepth_)));		// "Create" bullet
 
 		this->addSubObject(bullets_);														// Add bullets to the scene
 		bulletsArr_.push_back(bullets_);
-		//std::cout << glutGet(GLUT_ELAPSED_TIME) << ' ' << std::endl;
+		//std::cout << arrayCounter_ << ' ' << std::endl;
 	}
+
+
+
 }
 
 void GameManager::enemyFire(std::shared_ptr<Enemy> enemy_)
@@ -277,13 +283,25 @@ bool GameManager::findCollSpaceShipVsEnemy(std::shared_ptr<SpaceShip> spaceship,
 	auto radius1 = spaceship->getRadius();
 	auto radius2 = enemy->getRadius();
 
-	if (obj2Pos[2] >= (battlefieldDepth_ - std::abs(radius1+obj1Pos[2]))) {
-	
-		if ((std::abs(obj1Pos[0]) - std::abs(obj2Pos[0]) < radius1) && (std::abs(obj2Pos[1]) - std::abs(obj2Pos[1]) < radius1)) {
+	//if (obj2Pos[2] >= (battlefieldDepth_ - std::abs(radius1+obj1Pos[2]))) {
+	//
+	//	if ((std::abs(obj1Pos[0]) - std::abs(obj2Pos[0]) < radius1) && (std::abs(obj2Pos[1]) - std::abs(obj2Pos[1]) < radius1)) {
 
-			return true;
-		}
-	
+	//		return true;
+	//	}
+	//
+	//}
+	//return false;
+	if (obj2Pos[2] >= (battlefieldDepth_ - std::abs(radius1 + std::abs(obj1Pos[2])))) {
+
+
+		bool collX = (obj1Pos[0] + radius1 >= obj2Pos[0] && obj2Pos[0] + radius2 >= obj1Pos[0]);
+		bool collY = (obj1Pos[1] + radius1 >= obj2Pos[1] && obj2Pos[1] + radius2 >= obj1Pos[1]);
+
+
+		return (collX&&collY);
+
+
 	}
 	return false;
 
@@ -298,13 +316,18 @@ if (enemy != nullptr && bullets != nullptr){
 	auto radius1 = bullets->getRadius();
 	auto radius2 = enemy->getRadius();
 
+	//std::cout << obj1Pos[0] << " " << obj1Pos[1] << std::endl;
+
 	if (obj2Pos[2] >= (battlefieldDepth_ - std::abs(radius1 + std::abs(obj1Pos[2])))) {
 
-		if ((std::abs(obj1Pos[0]) - std::abs(obj2Pos[0]) < radius1) && (std::abs(obj2Pos[1]) - std::abs(obj2Pos[1]) < radius1)) {
-			
-			return true;
-		}
 
+		bool collX = (obj1Pos[0] + radius1 >= obj2Pos[0] && obj2Pos[0] + radius2 >= obj1Pos[0]);
+		bool collY = (obj1Pos[1] + radius1 >= obj2Pos[1] && obj2Pos[1] + radius2 >= obj1Pos[1]);
+
+
+		return (collX&&collY);
+
+	
 	}
 	return false;
 	}
@@ -315,36 +338,30 @@ bool GameManager::findCollSpaceShipVsBullets(std::shared_ptr<SpaceShip> spaceshi
 	return false;
 }
 
-//void GameManager::handleCollEnemyVsBullets(std::vector<std::shared_ptr<Bullets>> bulletsArr, std::shared_ptr<Enemy> enemy)
-//{
-//	//if (enemyArr_.empty() != true) {
-//		for (int i = 0; i < bulletsArr.size(); i++)
-//		{
-//			// //auto boundary = enemyArr_.at(i)->getMatrix()[3].z;
-//			//for (int j = 0; j < bulletsArr_.size(); j++) {
-//
-//			//  //std::cout << bulletsArr_.at(j)->getPos()[0] << std::endl;
-//			if (findCollEnemyVsBullets(enemy, bulletsArr.at(i))) {
-//
-//				this->removeSubObject(enemy);
-//				//enemyArr.erase(enemyArr.begin() + i--);
-//				this->removeSubObject(bulletsArr_.at(i));
-//				bulletsArr_.erase(bulletsArr_.begin() + i--);
-//				//enemyArr.erase(enemyArr.begin() + i--);
-//
-//				//	  this->removeSubObject(bulletsArr_.at(j));
-//				//	  bulletsArr_.erase(bulletsArr_.begin() + j--);
-//			}
-//
-//			// }
-//
-//			//}
-//		//}
-//	}
-//}
+bool GameManager::findCollAmmoVsBullets(std::shared_ptr<AmmoGun> ammo, std::shared_ptr<Bullets> bullets)
+{
+	glm::vec3 obj1Pos = bullets->getPos();
+	glm::vec3 obj2Pos = ammo->getPos();
+
+	auto radius1 = bullets->getRadius();
+	auto radius2 = ammo->getRadius();
+
+	if (std::abs(obj2Pos[2]) <= std::abs(radius1 + std::abs(obj1Pos[2]))) {
+
+
+		bool collX = (obj1Pos[0] + radius1 >= obj2Pos[0] && obj2Pos[0] + radius2 >= obj1Pos[0]);
+		bool collY = (obj1Pos[1] + radius1 >= obj2Pos[1] && obj2Pos[1] + radius2 >= obj1Pos[1]);
+
+
+		return (collX&&collY);
+
+	}
+	return false;
+}
 
 void GameManager::handleCollEnemyVsBullets(std::vector<std::shared_ptr<Bullets>> bulletsArr, std::vector<std::shared_ptr<Enemy>> enemyArr)
 {
+
 	if (enemyArr.empty() != true) {
 
 		for (int i = 0; i < bulletsArr.size(); i++) {
@@ -352,12 +369,17 @@ void GameManager::handleCollEnemyVsBullets(std::vector<std::shared_ptr<Bullets>>
 			for (int j = 0; j < enemyArr.size(); j++) {
 			
 				if (findCollEnemyVsBullets(enemyArr.at(j), bulletsArr.at(i))) {
-				
-					this->removeSubObject(enemyArr.at(j));
-					enemyArr.erase(enemyArr.begin() + j--);
-					
-					//this->removeSubObject(bulletsArr.at(i));
-					//bulletsArr.erase(bulletsArr.begin() + i--);
+
+					if (enemyArr.at(j)->life_ <= 0) {
+
+						this->removeSubObject(enemyArr.at(j));
+
+						enemyArr.erase(enemyArr.begin() + j--);
+					}
+					else {
+						enemyArr.at(j)->life_ -= bulletsArr.at(i)->damage_;
+						//std::cout << enemyArr.at(j)->life_ << std::endl;
+					}
 				}
 			}
 		}
@@ -365,6 +387,20 @@ void GameManager::handleCollEnemyVsBullets(std::vector<std::shared_ptr<Bullets>>
 
 	}
 
+}
+
+void GameManager::handleCollAmmoVsBullets(std::shared_ptr<AmmoGun> ammo, std::vector<std::shared_ptr<Bullets>> bulletsArr)
+{
+	for (int i = 0; i < bulletsArr.size(); i++) {
+		
+		if (findCollAmmoVsBullets(ammo, bulletsArr.at(i))) {
+			
+			this->removeSubObject(ammo);
+			spaceship_->reload();
+
+				}
+		}
+		glFlush();
 }
 
 //void GameManager::handleCollEnemyVsBullets(std::shared_ptr<Bullets> bullets, std::vector<std::shared_ptr<Enemy>> enemyArr)

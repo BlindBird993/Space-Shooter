@@ -1,5 +1,6 @@
 #pragma once
-
+#include <fstream>
+#include <sstream>
 #include <windows.h>
 #include <iostream>
 #include <GL/glew.h> 
@@ -9,7 +10,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "ParticlesEngineClass.h"
 #include "SceneObject.hpp"
-//#include "Weapon.h"
+#include "Model_OBJ.h"
 #include "MachineGun.h"
 #include "Lazer.h"
 #include "Bullets.h"
@@ -33,6 +34,8 @@ class SpaceShip : public SceneObject
 		void shipMoveBackward();
 		void shipMoveForward();
 
+
+		void drawShip();
 		void drawCube();
 
 		void drawTorus(double r, double c, int rSeg, int cSeg);
@@ -60,11 +63,7 @@ class SpaceShip : public SceneObject
 		int getLaserAmount();
 		int getMachineGunAmount();
 		bool shoot();
-		bool loadModel(const char * path,
-			std::vector < glm::vec3 > & out_vertices,
-			std::vector < glm::vec2 > & out_uvs,
-			std::vector < glm::vec3 > & out_normals);
-		void load(const char* filename, std::vector<glm::vec4> &vertices, std::vector<glm::vec3> &normals, std::vector<GLushort> &elements);
+		Model_OBJ obj;
 
   protected:
     void privateInit();
@@ -75,7 +74,7 @@ class SpaceShip : public SceneObject
 	float speed_;
     float life_;
     float armor_;
-	
+
 	Shader spaceshipShader_;
 	GLuint textureName_;
 	GLuint cubeTextures_;
@@ -96,7 +95,6 @@ class SpaceShip : public SceneObject
 	int machinegunBullets;
 
 	std::shared_ptr<Skybox> skybox_;
-
 
 
 };

@@ -4,17 +4,37 @@
 Enemy::Enemy(std::string type, float speed, int xBoundary, float startPos)
 {
 	this->type_ = type;
-	this->speed_ = speed;
 	this->xBoundary_ = xBoundary;
 	this->xPos_ = std::abs(xBoundary_ / 2);
 	this->startPos_ = startPos * -1;
-	this->currentWeapon = "MachineGun";
+	
+	if (type_ == "ordinary") {
+		color_ = { 1.0f,0.0f,0.0f };
+		this->currentWeapon = "MachineGun";
+		this->life_ = 50;
+		this->speed_ = speed;
 
-	maxX = 5;
+	}
+	if (type_ == "heavy") {
+		color_ = { 0.0f,1.0f,0.0f };
+		this->currentWeapon = "MachineGun";
+		this->life_ = 100;
+		this->speed_ = speed-1;
+
+	}
+	if (type_ == "boss") {
+		color_ = { 0.0f,0.0f,1.0f };
+		this->currentWeapon = "Laser";
+		this->life_ = 200;
+		this->speed_ = speed;
+
+	}
+
+	maxX = 10;
 	minX = 0;
-	maxY = 5;
+	maxY = 10;
 	minY = 0;
-	maxZ = startPos_+5;
+	maxZ = startPos_+10;
 	minZ = startPos_;
 	
 	privateInit();
@@ -88,7 +108,7 @@ float Enemy::getRadius() const
 
 void Enemy::createEnemy()
 {
-	glColor3f(1.0f, 0.0f, 0.0f);
+	glColor3f(color_[0],color_[1],color_[2]);
 	float size = 5.0f;
 
 	glBegin(GL_QUADS);
@@ -273,7 +293,10 @@ void Enemy::privateUpdate()
 	if (xPos_ == max_x) checkFlag = true;
 	if (xPos_ == min_x) checkFlag = false;
 	
-	
+	//from 0 to 512
+	//std::cout << matrix_[3][2] << std::endl;
+	//std::cout << matrix_[3][0] <<" "<< matrix_[3][1] << std::endl;
+	//std::cout << getRadius() << std::endl;
 
 }
 

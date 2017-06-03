@@ -3,16 +3,22 @@
 Bullets::Bullets(std::string type, glm::mat4 position, bool friendly, int depth)
 {
 	this->type_ = type;
-	if (type_ == "MachineGun") life_ = 50;
-	if (type_ == "Laser") life_ = 100;
+	if (type_ == "MachineGun") {
+		life_ = 50;
+		damage_ = 10;
+	}
+	if (type_ == "Laser") { 
+		life_ = 70;
+		damage_ = 20;
+	}
 	this->position_ = position[3];
 	this->friendly_ = friendly;
 	this->depth_ = depth;
-	this->maxX = 1;
+	this->maxX = 7;
 	this->minX = 0;
-	this->maxY = 1;
+	this->maxY = 7;
 	this->minY = 0;
-	this->maxZ = position_.z-1;
+	this->maxZ = position_.z-7;
 	this->minZ = position_.z;
 
 	privateInit();
@@ -50,6 +56,8 @@ void Bullets::createBullets()
 		glVertex3f(x - increment, y - increment, z + increment);
 		glVertex3f(x + increment, y - increment, z + increment);
 		glEnd();
+
+		//std::cout << position_[0] << " " << position_[1] << std::endl;
 	}
 
 	if (type_ == "Lazer")
@@ -89,17 +97,24 @@ void Bullets::privateRender()
 void Bullets::privateUpdate()
 {
 	if (friendly_ == true) {
-		matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, -7.0f)); 
+		matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, -6.0f)); 
 	}
 	else 
-		matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, 7.0f));
+		matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, 6.0f));
 	life_--;
-	//std::cout << getRadius() << " " << std::endl;
+	
+	//from -4 to -inf
+	// x and y always 0
+	//std::cout << matrix_[3][2] << " " << matrix_[3][0] << " " << matrix_[3][1] << std::endl;
+	//std::cout << getRadius()  << std::endl;
+	//std::cout << this->matrix_[3][0] <<" "<< this->matrix_[3][1] << std::endl;
+
+	//std::cout << getPos()[0] << " " << getPos()[1] << " " << getPos()[2] << std::endl;
 }
 
 glm::vec3 Bullets::getPos() const
 {
-	return glm::vec3(matrix_[3][0], matrix_[3][1], matrix_[3][2]);
+	return glm::vec3(position_[0], position_[1], matrix_[3][2]);
 }
 
 float Bullets::getRadius() const

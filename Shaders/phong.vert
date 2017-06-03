@@ -1,4 +1,3 @@
-
 uniform vec3 LightPosition;
 
 varying vec3 norm;

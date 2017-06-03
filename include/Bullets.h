@@ -27,8 +27,8 @@ public:
 
 	glm::vec3 getPos() const;
 	float getRadius() const;
-	std::vector< std::vector<float>> getVertexArr();
-
+	bool collFlag = false;
+	int damage_;
 
 
 protected:
@@ -41,6 +41,7 @@ private:
 	glm::vec3 position_;
 	bool friendly_;
 	int depth_;
+
 
 	float maxX;
 	float minX;

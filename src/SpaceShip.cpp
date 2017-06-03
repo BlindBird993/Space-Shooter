@@ -1,5 +1,13 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <assimp\cimport.h>
 #include <assimp\postprocess.h>
+
+//#include "assimp/Importer.hpp" //OO version Header! 
+//#include "assimp/postprocess.h" 
+//#include "assimp/scene.h" 
+//#include "assimp/DefaultLogger.hpp" 
+//#include "assimp/LogStream.hpp"
+
 #include "SpaceShip.hpp"
 #include "SOIL.h"
 
@@ -9,6 +17,8 @@ SpaceShip::SpaceShip(std::shared_ptr<Skybox> skybox_)
 	this->currentWeapon = "MachineGun";
 	machinegunBullets = 100;
 	laserBullets = 100;
+	this->life_ = 200;
+	this->armor_ = 100;
 	//setWeapon(new MachineGun(100));
 	maxX = 5;
 	minX = 0;
@@ -54,36 +64,6 @@ void SpaceShip::shipMoveForward()
 {
 	if (matrix_[3][2] >= -7400.f)
 	matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, -5.0f));
-}
-
-void SpaceShip::drawTorus(double r, double c, int rSeg, int cSeg)
-{
-
-	const double PI = 3.1415926535897932384626433832795;
-	const double TAU = 2 * PI;
-
-	for (int i = 0; i < rSeg; i++) {
-		glBegin(GL_QUAD_STRIP);
-		for (int j = 0; j <= cSeg; j++) {
-			for (int k = 0; k <= 1; k++) {
-				double s = (i + k) % rSeg + 0.5;
-				double t = j % (cSeg + 1);
-
-				double x = (c + r * cos(s * TAU / rSeg)) * cos(t * TAU / cSeg);
-				double y = (c + r * cos(s * TAU / rSeg)) * sin(t * TAU / cSeg);
-				double z = r * sin(s * TAU / rSeg);
-
-				double u = (i + k) / (float)rSeg;
-				double v = t / (float)cSeg;
-
-				glTexCoord2d(u, v);
-				glNormal3f(2 * x, 2 * y, 2 * z);
-				glVertex3d(2 * x, 2 * y, 2 * z);
-			}
-		}
-		glEnd();
-	}
-
 }
 
 std::vector<std::vector<float>> SpaceShip::getVertexArr()
@@ -178,73 +158,13 @@ bool SpaceShip::shoot()
 	return false;
 }
 
-//bool SpaceShip::loadModel(const char * path,
-//	std::vector < glm::vec3 > & out_vertices,
-//	std::vector < glm::vec2 > & out_uvs,
-//	std::vector < glm::vec3 > & out_normals)
-//{
-//	std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
-//	std::vector< glm::vec3 > temp_vertices;
-//	std::vector< glm::vec2 > temp_uvs;
-//	std::vector< glm::vec3 > temp_normals;
-//
-//	FILE * file = fopen(path, "r");
-//	if (file == NULL) {
-//		printf("Impossible to open the file !\n");
-//		return false;
-//	}
-//	while (1) {
-//
-//		char lineHeader[128];
-//		// read the first word of the line
-//		int res = fscanf(file, "%s", lineHeader);
-//		if (res == EOF)
-//			break; // EOF = End Of File. Quit the loop.
-//
-//				   // else : parse lineHeader
-//		if (strcmp(lineHeader, "v") == 0) {
-//			glm::vec3 vertex;
-//			fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
-//			temp_vertices.push_back(vertex);
-//		}
-//		else if (strcmp(lineHeader, "vt") == 0) {
-//			glm::vec2 uv;
-//			fscanf(file, "%f %f\n", &uv.x, &uv.y);
-//			temp_uvs.push_back(uv);
-//		}
-//		else if (strcmp(lineHeader, "vn") == 0) {
-//			glm::vec3 normal;
-//			fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
-//			temp_normals.push_back(normal);
-//		}
-//		else if (strcmp(lineHeader, "f") == 0) {
-//			std::string vertex1, vertex2, vertex3;
-//			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-//			int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
-//			if (matches != 9) {
-//				printf("File can't be read by our simple parser : ( Try exporting with other options\n");
-//				return false;
-//			}
-//			vertexIndices.push_back(vertexIndex[0]);
-//			vertexIndices.push_back(vertexIndex[1]);
-//			vertexIndices.push_back(vertexIndex[2]);
-//			uvIndices.push_back(uvIndex[0]);
-//			uvIndices.push_back(uvIndex[1]);
-//			uvIndices.push_back(uvIndex[2]);
-//			normalIndices.push_back(normalIndex[0]);
-//			normalIndices.push_back(normalIndex[1]);
-//			normalIndices.push_back(normalIndex[2]);
-//
-//
-//	return false;
-//}
-
 
 
 void SpaceShip::privateInit()
 {
 
 	//model load
+	obj.Load("../textures/models/222.obj");
 	//const aiScene* spaceShipModel = aiImportFile("../textures/SpaceShip.fbx",aiProcessPreset_TargetRealtime_MaxQuality);
 	
 	//texture initiation
@@ -280,12 +200,9 @@ void SpaceShip::privateInit()
 
 	list_id = glGenLists(1);
 	glNewList(list_id, GL_COMPILE);//begin new list
-
 	glColor3f(0.0f, 0.0f, 1.0f);
 	//float size = 5.0f;
 	float angle = 90.0;
-
-
 	glEndList();//end new list
 
 	particles_ptr.reset(new ParticlesEngineClass(particleTexture_));
@@ -293,13 +210,17 @@ void SpaceShip::privateInit()
 	
 	cubeTextures_ = skybox_->getTextures();
 
-	spaceshipShader_.initShaders("../Shaders/reflection");
+
+
+	spaceshipShader_.initShaders("../Shaders/phong");
 	spaceshipShader_.enable();
 
-	GLint texture1 = glGetUniformLocation(spaceshipShader_.getProg(), "cube_texture");//fragment
-	glUniform1i(texture1, 0);
+	glUniform3f(glGetUniformLocation(spaceshipShader_.getProg(), "ObjColor"), 1.000f, 0.843f, 0.000f);
+	glUniform3f(glGetUniformLocation(spaceshipShader_.getProg(), "LightPosition"), -1.0, -100.0, 3.0);
+	//GLint texture1 = glGetUniformLocation(spaceshipShader_.getProg(), "cube_texture");//fragment
+	//glUniform1i(texture1, 0);
 
-	if (cubeTextures_ == NULL) { std::cout << "Fail" << std::endl; }
+	//if (cubeTextures_ == NULL) { std::cout << "Fail" << std::endl; }
 
 	matrix_ = glm::translate(glm::mat4(), glm::vec3(0.0f, 10.0f, -5.0f));
 	spaceshipShader_.disable();
@@ -310,21 +231,26 @@ void SpaceShip::privateRender()
 
 	spaceshipShader_.enable();
 
-	glActiveTexture(GL_TEXTURE0);
+	/*glActiveTexture(GL_TEXTURE0);
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, cubeTextures_);
+	glBindTexture(GL_TEXTURE_2D, cubeTextures_);*/
 	
-
 	drawCube();
-	//glCallList(list_id);
-	//drawTorus(3.0f, 6.0f, 64, 32);
-	
-	glActiveTexture(GL_TEXTURE0);
-	glDisable(GL_TEXTURE_2D);
+	//glLoadIdentity();
+	//drawShip();
+
+	/*glActiveTexture(GL_TEXTURE0);
+	glDisable(GL_TEXTURE_2D);*/
 
 
 	spaceshipShader_.disable();
-	//std::cout << matrix_[3][0] << ' ' << matrix_[3][1] << ' ' << matrix_[3][2] << std::endl;
+
+
+	//glClearColor(0.0, 0.0, 0.0, 1.0);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glLoadIdentity();
+	//drawShip();
+	//glutSwapBuffers(); //swap the buffers
 
 }
 
@@ -343,12 +269,38 @@ void SpaceShip::privateUpdate()
 
 	//from -5 to -inf
 	//std::cout << matrix_[3][2] << " " << std::endl;
-	
+	//std::cout << matrix_[3][0] <<" "<< matrix_[3][1] << std::endl;
 
 	
 }
 
 
+
+void SpaceShip::drawShip()
+{
+	//glPushMatrix();
+	//glTranslatef(0, 0, 5);//-40.00, -105);
+	//glColor3f(1.0, 0.23, 0.27);
+	//glScalef(2, 2, 2);
+	////glRotatef(elephantrot, 0, 1, 0);
+	//glCallList(elephant);
+	//glPopMatrix();
+	//elephantrot = elephantrot + 0.6;
+	//if (elephantrot>360)elephantrot = elephantrot - 360;
+	//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+	
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glLoadIdentity();
+	//gluLookAt(0, 1, 4, 0, 0, 0, 0, 1, 0);
+	glPushMatrix();
+	glColor3f(1.0, 0.23, 0.27);
+	glScalef(5, 5, 5);
+	obj.Draw();
+	glPopMatrix();
+	//glutSwapBuffers();
+
+
+}
 
 void SpaceShip::drawCube()
 {

@@ -44,6 +44,10 @@ public:
 	float maxZ;
 	float minZ;
 
+	float speed_;
+	float life_;
+	float armor_;
+
 protected:
 	void privateInit();
 	void privateRender();
@@ -52,9 +56,6 @@ protected:
 	glm::vec3 translateVec_;
 
 private:
-	float speed_;
-	float life_;
-	float armor_;
 	bool isActive_ = true;
 	
 	std::string type_;
@@ -79,6 +80,8 @@ private:
 	std::vector< std::vector<float>> vertexArray_; //vertex array
 	std::vector< glm::vec3 > normalArray_; // normals array
 	std::vector< glm::uint > indexArray_;  // index array
+
+	std::vector<float> color_;
 
 	int xBoundary_;
 	int xPos_;

@@ -16,16 +16,21 @@
 class AmmoGun : public SceneObject
 {
 public:
-	AmmoGun();
+	AmmoGun(float startPos);
 	~AmmoGun();
 	int list_id;
 
-	void drawTorus(double r, double c, int rSeg, int cSeg);
-	std::vector< std::vector<float>> getVertexArr();
 
+	void drawCube();
 	glm::vec3 getPos() const;
 	glm::vec3 getDS() const;
 	float getRadius() const;
+
+	float startPos_;
+
+	bool testFlag = false;
+	GLfloat     rtri = 0.0f;                       // Angle For The Triangle ( NEW )
+	GLfloat     rquad = 0.0f;                      // Angle For The Quad     ( NEW )
 
 	float maxX;
 	float minX;
@@ -34,8 +39,7 @@ public:
 	float maxZ;
 	float minZ;
 
-	float boundaryX;
-	float boundaryY;
+	Shader ammoShader_;
 
 protected:
 	void privateInit();
