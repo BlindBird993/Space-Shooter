@@ -11,7 +11,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Weapon.h"
-
+#include "ParticlesEngineClass.h"
+#include "SOIL.h"
 
 class Enemy : public SceneObject
 {
@@ -28,7 +29,6 @@ public:
 	void setWeapon(std::string weapon);
 	std::string getWeapon() const;
 
-	void move();
 	glm::vec3 getPos() const;
 	float getRadius() const;
 
@@ -47,6 +47,7 @@ public:
 	float speed_;
 	float life_;
 	float armor_;
+	bool isActive_ = true;
 
 protected:
 	void privateInit();
@@ -56,15 +57,14 @@ protected:
 	glm::vec3 translateVec_;
 
 private:
-	bool isActive_ = true;
-	
+
 	std::string type_;
 
 	std::string currentWeapon;
 	int bulletAmount;
 	float startPos_;
 
-	
+
 	bool checkFlag = false;
 	float max_z = 50.0;
 	float min_z = -150.0;
@@ -85,6 +85,6 @@ private:
 
 	int xBoundary_;
 	int xPos_;
-
+	GLuint enemyTexture_;
 };
 

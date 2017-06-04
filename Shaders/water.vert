@@ -1,4 +1,3 @@
-/* Vertex shader */
 #version 130
 uniform float waveTime;
 uniform float waveWidth;

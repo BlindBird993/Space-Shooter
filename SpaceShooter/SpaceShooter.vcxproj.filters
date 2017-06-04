@@ -42,16 +42,7 @@
     <ClCompile Include="..\src\Enemy.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="BMPLoader.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Weapon.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Bullets.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\AraragiKoyomiClass.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ParticlesClass.cpp">
@@ -60,13 +51,7 @@
     <ClCompile Include="..\src\ParticlesEngineClass.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ShaderTest.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\shader.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Cube.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ShaderOne.cpp">
@@ -78,25 +63,10 @@
     <ClCompile Include="..\src\Water.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Coin.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\AmmoGun.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\AmmoLazer.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\AmmoRocket.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\BoundingBox.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\FPSCounter.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Model_OBJ.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,28 +98,16 @@
     <ClInclude Include="..\include\Enemy.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="BMPLoader.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Weapon.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\MachineGun.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Bullets.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\AraragiKoyomiClass.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ParticlesClass.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ParticlesEngineClass.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Lazer.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ShaderTest.h">
@@ -164,22 +122,10 @@
     <ClInclude Include="..\include\Water.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Coin.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\AmmoGun.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\AmmoLazer.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\AmmoRocket.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\FPSCounter.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Model_OBJ.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

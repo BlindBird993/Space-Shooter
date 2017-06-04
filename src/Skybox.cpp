@@ -103,7 +103,7 @@ void Skybox::drawCube()
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};
 	GLfloat skyboxVertices[] = {
-		// Positions          
+		// Positions
 		-1.0f,  1.0f, -1.0f,
 		-1.0f, -1.0f, -1.0f,
 		1.0f, -1.0f, -1.0f,
@@ -169,16 +169,16 @@ void Skybox::drawCube()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 	glBindVertexArray(0);
 **/
-	//list_id = glGenLists(1);
-	//glNewList(list_id, GL_COMPILE);//begin new list
+//list_id = glGenLists(1);
+//glNewList(list_id, GL_COMPILE);//begin new list
 
 	float size = 1.0f;
 	//float scale = 0.2f;
 	//float delta = 0.1f;
 
 	float A[3] = { size,  size,  size };
-	float B[3] = { size,  size, -size  };
-	float C[3] = { size, -size, -size  };
+	float B[3] = { size,  size, -size };
+	float C[3] = { size, -size, -size };
 	float D[3] = { size, -size,  size };
 	float E[3] = { -size,  size,  size };
 	float F[3] = { -size,  size, -size };

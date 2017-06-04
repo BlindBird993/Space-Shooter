@@ -4,12 +4,12 @@ Bullets::Bullets(std::string type, glm::mat4 position, bool friendly, int depth)
 {
 	this->type_ = type;
 	if (type_ == "MachineGun") {
-		life_ = 50;
-		damage_ = 10;
+		life_ = 100;
+		damage_ = 3;
 	}
-	if (type_ == "Laser") { 
-		life_ = 70;
-		damage_ = 20;
+	if (type_ == "Laser") {
+		life_ = 150;
+		damage_ = 5;
 	}
 	this->position_ = position[3];
 	this->friendly_ = friendly;
@@ -18,7 +18,7 @@ Bullets::Bullets(std::string type, glm::mat4 position, bool friendly, int depth)
 	this->minX = 0;
 	this->maxY = 7;
 	this->minY = 0;
-	this->maxZ = position_.z-7;
+	this->maxZ = position_.z - 7;
 	this->minZ = position_.z;
 
 	privateInit();
@@ -38,7 +38,7 @@ void Bullets::createBullets()
 	auto x = position_.x;
 	auto y = position_.y;
 	auto z = position_.z;
-	float increment = 0.2f;
+	
 
 	if (friendly_ == false)
 	{
@@ -47,6 +47,7 @@ void Bullets::createBullets()
 
 	if (type_ == "MachineGun")
 	{
+		increment = 0.2f;
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glColor3f(1.00, 1.00, 0.00);
 
@@ -60,10 +61,11 @@ void Bullets::createBullets()
 		//std::cout << position_[0] << " " << position_[1] << std::endl;
 	}
 
-	if (type_ == "Lazer")
+	if (type_ == "Laser")
 	{
+		increment = 0.1f;
 		glClearColor(0.0, 0.0, 0.0, 0.0);
-		glColor3f(1.00, 0.00, 0.00);
+		glColor3f(1.00, 0.00, 1.00);
 
 		glBegin(GL_QUADS);
 		glVertex3f(x + increment, y + increment, z + increment);
@@ -71,6 +73,7 @@ void Bullets::createBullets()
 		glVertex3f(x - increment, y - increment, z + increment);
 		glVertex3f(x + increment, y - increment, z + increment);
 		glEnd();
+		std::cout << position_[0] << " " << position_[1] << std::endl;
 	}
 }
 
@@ -97,12 +100,12 @@ void Bullets::privateRender()
 void Bullets::privateUpdate()
 {
 	if (friendly_ == true) {
-		matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, -6.0f)); 
+		matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, -6.0f));
 	}
-	else 
+	else
 		matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 0.0f, 6.0f));
 	life_--;
-	
+
 	//from -4 to -inf
 	// x and y always 0
 	//std::cout << matrix_[3][2] << " " << matrix_[3][0] << " " << matrix_[3][1] << std::endl;

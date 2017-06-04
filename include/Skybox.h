@@ -19,7 +19,7 @@ static class Skybox : public SceneObject
 public:
 	Skybox(std::shared_ptr<Camera> camera);
 	~Skybox();
-    GLuint getTextures();
+	GLuint getTextures();
 
 
 protected:
@@ -42,6 +42,6 @@ private:
 	GLuint skyboxVAO, skyboxVBO;
 
 	std::shared_ptr<Camera> cam_;
-    GLuint cubeTextures_;
+	GLuint cubeTextures_;
 
 };

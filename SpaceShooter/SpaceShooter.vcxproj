@@ -90,7 +90,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Igor Molchanov\Documents\Visual Studio 2015\Projects\SpaceShooter\include\assimp\Compiler;C:\Users\Igor Molchanov\Documents\Visual Studio 2015\Projects\SpaceShooter\include\assimp;../;../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Igor Molchanov\Documents\Visual Studio 2015\Projects\SpaceShooter\include\assimp;../;../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,49 +151,32 @@
   <ItemGroup>
     <ClCompile Include="..\app\main.cpp" />
     <ClCompile Include="..\src\AmmoGun.cpp" />
-    <ClCompile Include="..\src\AmmoLazer.cpp" />
-    <ClCompile Include="..\src\AmmoRocket.cpp" />
-    <ClCompile Include="..\src\AraragiKoyomiClass.cpp" />
     <ClCompile Include="..\src\BattleField.cpp" />
-    <ClCompile Include="..\src\BoundingBox.cpp" />
     <ClCompile Include="..\src\Bullets.cpp" />
     <ClCompile Include="..\src\Camera.cpp" />
-    <ClCompile Include="..\src\Coin.cpp" />
-    <ClCompile Include="..\src\Cube.cpp" />
     <ClCompile Include="..\src\FPSCounter.cpp" />
     <ClCompile Include="..\src\GameManager.cpp" />
-    <ClCompile Include="..\src\Model_OBJ.cpp" />
     <ClCompile Include="..\src\ParticlesClass.cpp" />
     <ClCompile Include="..\src\ParticlesEngineClass.cpp" />
     <ClCompile Include="..\src\SceneObject.cpp" />
     <ClCompile Include="..\src\Enemy.cpp" />
     <ClCompile Include="..\src\shader.cpp" />
     <ClCompile Include="..\src\ShaderOne.cpp" />
-    <ClCompile Include="..\src\ShaderTest.cpp" />
     <ClCompile Include="..\src\Skybox.cpp" />
     <ClCompile Include="..\src\SpaceShip.cpp" />
     <ClCompile Include="..\src\Water.cpp" />
-    <ClCompile Include="..\src\Weapon.cpp" />
-    <ClCompile Include="BMPLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\AmmoGun.h" />
-    <ClInclude Include="..\include\AmmoLazer.h" />
-    <ClInclude Include="..\include\AmmoRocket.h" />
-    <ClInclude Include="..\include\AraragiKoyomiClass.h" />
     <ClInclude Include="..\include\BattleField.hpp" />
     <ClInclude Include="..\include\Bullets.h" />
     <ClInclude Include="..\include\Camera.hpp" />
     <ClInclude Include="..\include\Clock.hpp" />
-    <ClInclude Include="..\include\Coin.h" />
     <ClInclude Include="..\include\FPSCounter.h" />
     <ClInclude Include="..\include\FpsCounter.hpp" />
     <ClInclude Include="..\include\GameManager.hpp" />
     <ClInclude Include="..\include\Enemy.h" />
     <ClInclude Include="..\include\Input.hpp" />
-    <ClInclude Include="..\include\Lazer.h" />
-    <ClInclude Include="..\include\MachineGun.h" />
-    <ClInclude Include="..\include\Model_OBJ.h" />
     <ClInclude Include="..\include\ParticlesClass.h" />
     <ClInclude Include="..\include\ParticlesEngineClass.h" />
     <ClInclude Include="..\include\SceneObject.hpp" />
@@ -203,7 +186,6 @@
     <ClInclude Include="..\include\SpaceShip.hpp" />
     <ClInclude Include="..\include\Water.h" />
     <ClInclude Include="..\include\Weapon.h" />
-    <ClInclude Include="BMPLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Shaders\bfshader.frag" />

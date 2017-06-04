@@ -16,7 +16,7 @@
 class AmmoGun : public SceneObject
 {
 public:
-	AmmoGun(float startPos);
+	AmmoGun(float startPos, float xPos);
 	~AmmoGun();
 	int list_id;
 
@@ -27,6 +27,8 @@ public:
 	float getRadius() const;
 
 	float startPos_;
+	float xPos_;
+	bool isActive_ = true;
 
 	bool testFlag = false;
 	GLfloat     rtri = 0.0f;                       // Angle For The Triangle ( NEW )

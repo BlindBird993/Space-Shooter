@@ -5,8 +5,13 @@ class FPSCounter
 public:
 	FPSCounter();
 	~FPSCounter();
-
-	double fps;
-
 	void CalculateFrameRate();
+	float getCurrentTime();
+	float getFpsValue();
+	double fps_;
+private:
+	float currentTime_;
+	float startTime_;
+
+
 };

@@ -1,8 +1,9 @@
 #include "..\include\AmmoGun.h"
 
-AmmoGun::AmmoGun(float startPos)
+AmmoGun::AmmoGun(float startPos, float xPos)
 {
-	startPos_ = startPos;
+	this->xPos_ = xPos;
+	this->startPos_ = startPos * -1;
 	maxX = 10;
 	minX = 0;
 	maxY = 10;
@@ -22,21 +23,23 @@ void AmmoGun::privateInit()
 
 	glUniform3f(glGetUniformLocation(ammoShader_.getProg(), "ObjColor"), 1.000f, 0.843f, 0.000f);
 	glUniform3f(glGetUniformLocation(ammoShader_.getProg(), "LightPosition"), -1.0, -100.0, 3.0);
-	//GLint texture1 = glGetUniformLocation(spaceshipShader_.getProg(), "cube_texture");//fragment
-	//glUniform1i(texture1, 0);
 
-	//if (cubeTextures_ == NULL) { std::cout << "Fail" << std::endl; }
-
-	//matrix_ = glm::translate(glm::mat4(), glm::vec3(0.0f, 10.0f, -5.0f));
 	ammoShader_.disable();
+	matrix_ = glm::translate(matrix_, glm::vec3(xPos_, 175.0f, -startPos_));
 
-	matrix_ = glm::translate(matrix_, glm::vec3(0.0f, 10.0f,startPos_));
 }
 
 void AmmoGun::privateRender()
 {
 	ammoShader_.enable();
-	drawCube();
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
+	//glRotatef(xRotated, 1.0, 0.0, 0.0);
+	//glPushMatrix();
+	//glRotatef(rtri, 0.0f, 1.0f, 0.0f);
+	glutSolidSphere(20.0, 150, 150);
+	//glPopMatrix();
+	//drawCube();
 	ammoShader_.disable();
 }
 
@@ -50,6 +53,9 @@ void AmmoGun::privateUpdate()
 		testFlag = true;
 	if (rtri == 0.0f)
 		testFlag = false;
+
+	
+	//startPos_--;
 	//std::cout << getPos()[0] <<" " << getPos()[1] << std::endl;
 }
 

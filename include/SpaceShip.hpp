@@ -10,9 +10,6 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "ParticlesEngineClass.h"
 #include "SceneObject.hpp"
-#include "Model_OBJ.h"
-#include "MachineGun.h"
-#include "Lazer.h"
 #include "Bullets.h"
 #include "ShaderOne.h"
 #include "Skybox.h"
@@ -22,80 +19,69 @@
 
 class SpaceShip : public SceneObject
 {
-	public:
-		SpaceShip(std::shared_ptr<Skybox> skybox_);
-		~SpaceShip();
-		int list_id;
+public:
+	SpaceShip();
+	~SpaceShip();
+	int list_id;
 
-		void shipMoveRight();
-		void shipMoveLeft();
-		void shipMoveUp();
-		void shipMoveDown();
-		void shipMoveBackward();
-		void shipMoveForward();
+	void shipMoveRight();
+	void shipMoveLeft();
+	void shipMoveBackward();
+	void shipMoveForward();
 
+	GLuint particleTexture_;
+	std::shared_ptr<ParticlesEngineClass> particles_ptr;
 
-		void drawShip();
-		void drawCube();
+	glm::vec3 getPos() const;
+	float getRadius() const;
 
-		void drawTorus(double r, double c, int rSeg, int cSeg);
-		std::vector< std::vector<float>> getVertexArr();
+	GLfloat m[16];
 
-		glm::vec3 getPos() const;
-		float getRadius() const;
+	float maxX;
+	float minX;
+	float maxY;
+	float minY;
+	float maxZ;
+	float minZ;
 
-		GLfloat m[16];
+	float boundaryX;
+	float boundaryY;
 
-		float maxX;
-		float minX;
-		float maxY;
-		float minY;
-		float maxZ;
-		float minZ;
+	void setWeapon(std::string weapon);
+	std::string getWeapon() const;
+	void changeWeapon(std::string weapon);
+	void reload();
+	int getLaserAmount();
+	int getMachineGunAmount();
+	bool shoot();
 
-		float boundaryX;
-		float boundaryY;
+	int getLife();
+	int getArmor();
 
-		void setWeapon(std::string weapon);
-		std::string getWeapon() const;
-		void changeWeapon(std::string weapon);
-		void reload();
-		int getLaserAmount();
-		int getMachineGunAmount();
-		bool shoot();
-		Model_OBJ obj;
+	void setLife(float damage);
+	void setArmor(float damage);
 
-  protected:
-    void privateInit();
+protected:
+	void privateInit();
 	void privateRender();
 	void privateUpdate();
 
-	private:
+private:
 	float speed_;
-    float life_;
-    float armor_;
+	int life_;
+	int armor_;
 
 	Shader spaceshipShader_;
 	GLuint textureName_;
 	GLuint cubeTextures_;
-	GLuint particleTexture_;
 
-	std::shared_ptr<ParticlesEngineClass> particles_ptr;
-
-
-	bool testFlag = false;
-	GLfloat     rtri = 0.0f;                       // Angle For The Triangle ( NEW )
-	GLfloat     rquad = 0.0f;                      // Angle For The Quad     ( NEW )
-
-	std::vector< std::vector<float>> vertexArray_; //vertex array
+	std::vector<glm::vec3> vertexArray_;
+	std::vector<unsigned int> indexArray_; //vertex array
 
 	// Weapons
 	std::string currentWeapon;
 	int laserBullets;
 	int machinegunBullets;
-
-	std::shared_ptr<Skybox> skybox_;
-
 
 };
 

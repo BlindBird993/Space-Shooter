@@ -89,7 +89,7 @@ void Water::privateRender()
 	//shader_.disable();
 	shader_.enable();
 	glActiveTexture(GL_TEXTURE0);
-	
+
 	//glActiveTexture(GL_TEXTURE1);
 	//glEnable(GL_TEXTURE_2D);
 	//glBindTexture(GL_TEXTURE_2D, waterTexture_);

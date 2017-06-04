@@ -44,15 +44,15 @@ void BattleField::privateInit()
 	int CONST_SIZE_Z = 512;
 	float x_coord = 0.0;
 	float z_coord = 0.0;
-  // Create vertex array
-	for (int i = 0; i < CONST_SIZE_Z; i++) {		
-		
+	// Create vertex array
+	for (int i = 0; i < CONST_SIZE_Z; i++) {
+
 		for (int j = 0; j < CONST_SIZE_X; j++) {
-	
+
 			x_coord = (j * 10) - 160;
 			z_coord = (i*-10);
 
-			this->vertexArray_.push_back(glm::vec3(x_coord,0.0,z_coord));
+			this->vertexArray_.push_back(glm::vec3(x_coord, 0.0, z_coord));
 		}
 
 	}
@@ -61,22 +61,22 @@ void BattleField::privateInit()
 
 		for (double j = 0; j < CONST_SIZE_X; j++) {
 
-			x_coord = (j / (CONST_SIZE_X -1));
+			x_coord = (j / (CONST_SIZE_X - 1));
 			z_coord = (i / (CONST_SIZE_Z - 1));
 
-			this->textureArray_.push_back(glm::vec2(x_coord,z_coord));
+			this->textureArray_.push_back(glm::vec2(x_coord, z_coord));
 		}
 
 	}
 	//set primitive restart values
 	glPrimitiveRestartIndex(MAXUINT);
 	//build index array
-	for (int i = 0; i < CONST_SIZE_Z-1; i++) {
+	for (int i = 0; i < CONST_SIZE_Z - 1; i++) {
 
 		for (int j = 0; j < CONST_SIZE_X; j++) {
 
-			this->indexArray_.push_back((j+CONST_SIZE_X)+ (CONST_SIZE_X*i));
-			this->indexArray_.push_back(j+(CONST_SIZE_X*i));
+			this->indexArray_.push_back((j + CONST_SIZE_X) + (CONST_SIZE_X*i));
+			this->indexArray_.push_back(j + (CONST_SIZE_X*i));
 
 		}
 		this->indexArray_.push_back(MAXUINT);
@@ -86,13 +86,13 @@ void BattleField::privateInit()
 	int width, height;
 
 	unsigned char* img = SOIL_load_image("../textures/colorMap2012.bmp", &width, &height, 0, SOIL_LOAD_RGB);//color
-	
+
 	glGenTextures(1, &textureName_);
 	glBindTexture(GL_TEXTURE_2D, textureName_);
-	
+
 	if (!img)
 		std::cout << "Not loaded" << sizeof(img) << std::endl;
-	
+
 	if (textureName_ == NULL) {
 
 		printf("Error in download '%s'", SOIL_last_result());
@@ -110,8 +110,8 @@ void BattleField::privateInit()
 
 		SOIL_free_image_data(img);
 		glBindTexture(GL_TEXTURE_2D, 0);
-		}
-//second texture
+	}
+	//second texture
 	unsigned char* img2 = SOIL_load_image("../textures/heightMap2012.bmp", &width, &height, 0, SOIL_LOAD_RGB);//hight
 
 	glGenTextures(1, &secondTextureName_);
@@ -167,8 +167,7 @@ void BattleField::privateInit()
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	//GLint loc;
-	//GLuint prog;
+
 	shader_.initShaders("../Shaders/bfshader");
 	shader_.enable();
 
@@ -177,9 +176,6 @@ void BattleField::privateInit()
 
 	GLint texture2 = glGetUniformLocation(shader_.getProg(), "colorMap");//vertex
 	glUniform1i(texture2, 1);
-
-	//GLint texture3 = glGetUniformLocation(shader_.getProg(), "light");//light
-	//glUniform1i(texture3, 2);
 
 	shader_.disable();
 
@@ -197,15 +193,10 @@ void BattleField::privateRender()
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, textureName_);
 
-	//glActiveTexture(GL_TEXTURE2);
-	//glEnable(GL_TEXTURE_2D);
-	//glBindTexture(GL_TEXTURE_2D, lightTextureName_);
-
-
 	glEnable(GL_PRIMITIVE_RESTART);
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, textureName_);
- 
+
 	// Render the battlefield
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -215,17 +206,13 @@ void BattleField::privateRender()
 	glVertexPointer(3, GL_FLOAT, 0, &vertexArray_[0]);
 
 	glDrawElements(GL_QUAD_STRIP, indexArray_.size(), GL_UNSIGNED_INT, &indexArray_[0]);
-	
+
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_PRIMITIVE_RESTART);
 	//texture	
-
-
-	//glActiveTexture(GL_TEXTURE2);
-	//glDisable(GL_TEXTURE_2D);
 
 	glActiveTexture(GL_TEXTURE1);
 	glDisable(GL_TEXTURE_2D);

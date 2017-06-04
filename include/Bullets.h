@@ -41,6 +41,7 @@ private:
 	glm::vec3 position_;
 	bool friendly_;
 	int depth_;
+	float increment = 0.0f;
 
 
 	float maxX;

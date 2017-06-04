@@ -12,25 +12,27 @@
 class ParticlesEngineClass : public SceneObject
 {
 public:
-	ParticlesEngineClass(GLuint textureName);
+	ParticlesEngineClass(GLuint textureName, glm::mat4 matrix);
 	~ParticlesEngineClass();
 	GLuint textureName_;
+	glm::mat4 matrix;
 
 
-	bool	active = TRUE;				// Window Active Flag Set To TRUE By Default
-	bool	fullscreen = TRUE;			// Fullscreen Flag Set To Fullscreen Mode By Default
-	bool	rainbow = true;				// Rainbow Mode?
-	bool	sp;							// Spacebar Pressed?
-	bool	rp;							// Enter Key Pressed?
+	bool	active = TRUE;				
+	bool	fullscreen = TRUE;			
+	bool	rainbow = true;				
+	bool	sp;							
+	bool	rp;							
 
-	float	slowdown = 2.0f;				// Slow Down Particles
-	float	xspeed;						// Base X Speed (To Allow Keyboard Direction Of Tail)
-	float	yspeed;						// Base Y Speed (To Allow Keyboard Direction Of Tail)
-	float	zoom = -40.0f;				// Used To Zoom Out
-	GLuint	loop;						// Misc Loop Variable
-	GLuint	col;						// Current Color Selection
-	GLuint	delay = 0;						// Rainbow Effect Delay
-	GLuint	texture[1];					// Storage For Our Particle Texture
+	float	slowdown = 2.0f;				
+	float	xspeed;						
+	float	yspeed;						
+	float	zoom = -40.0f;				
+	float	partlife =100.0f;
+	GLuint	loop;						
+	GLuint	col;						
+	GLuint	delay = 0;						
+	GLuint	texture[1];					
 
 	static const int MAX_PARTICLES = 1000;
 	ParticlesClass particlesArray_[MAX_PARTICLES];
