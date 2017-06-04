@@ -17,6 +17,6 @@ Collisions implemented using AABB collision detection with additional checking f
 SpaceShip would be removed from a scene if his life and armor equal or smaller than zero.
 
 Creating model of spaceship with help from Bjørn-Richard Pedersen.
-I am very sorry for messy code I had have enough time to fix all the small issues.
+I am very sorry for messy code I had not have enough time to fix all the small issues.
 Here lies whole files and last compiled version and binaries of game is SpaceShooter.7z
 https://www.dropbox.com/sh/tt0iyggdgufijgk/AAC_lTR-ozYOv1b3ALZ8BUEva?dl=0
