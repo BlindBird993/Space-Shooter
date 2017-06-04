@@ -9,3 +9,5 @@ Unfortunately I had many problems with loading models, which took too much time,
 Collisions with spaceship and enemy bullets as well as enemies and spaceship bullets implemented.
 
 Creating model of spaceship with help from Bjørn-Richard Pedersen.
+
+Here lies whole files and last compiled version and binaries of game is SpaceShooter.7z
