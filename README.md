@@ -15,7 +15,7 @@ Implemented shaders for water reflection and moving as well as shaders for Battl
 Two types of weapon with different damage and appearance were implemented: Laser and Machine Gun.
 Collisions implemented using AABB collision detection with additional checking for Z coordinate.
 SpaceShip would be removed from a scene if his life and armor equal or smaller than zero.
-
+I use SOIL library to load textures.
 Creating model of spaceship with help from Bjørn-Richard Pedersen.
 I am very sorry for messy code I had not have enough time to fix all the small issues.
 Here lies whole files and last compiled version and binaries of game is SpaceShooter.7z
